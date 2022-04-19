@@ -1,4 +1,5 @@
 open GestionAventure;;
+open Score;;
 open Personnage;;
 open Monstre;;
 
@@ -21,4 +22,5 @@ with
 ;;
 
 GestionAventure.fin_partie !raison_fin;;
+print_string (Score.compare_score (10, "test2"));;
 
