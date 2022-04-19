@@ -185,6 +185,7 @@ Au fait qui es-tu aventurier?\n") in
         in (combattre perso monstre)
       else 
         perso
+      
 
 
 (*let fuir : Personnage.perso -> Personnage.perso = fun perso ->
@@ -215,34 +216,36 @@ Au fait qui es-tu aventurier?\n") in
   aux perso
 ;;*)
 
-let marchandises = fun () ->
+let marchandises : unit -> (Objet.type_obj * int ) list = fun () ->
   let nb_objet = Random.int 3 in
   let les_objet = fun hasard->
     match hasard with
-    |0 -> Poulet
-    |_ -> Eponge
+    |0 -> Objet.Poulet
+    |_ -> Objet.Eponge
   in
-  let liste_objet = fun nb ->
-    match nb with
-      | 0 -> []
-      | 1 ->
   let rec prix_chaque_objet = fun existant obj  ->
     match obj with
       |0 -> []
-      |1 when existant =-1->((hasard Random.int 2),(Random.int 2)+1) :: (prix_chaque_objet (obj-1))
-      |_ -> (obj,(Random.int 2)+1) :: (prix_chaque_objet (obj-1))
-  in (prix_chaque_objet nb_objet)
+      |1 when existant =(-1)->let existant =Random.int 2 in ((les_objet existant),(Random.int 2)+1) :: (prix_chaque_objet existant(obj-1))
+      |1 when existant =0->((les_objet 1),(Random.int 2)+1) :: (prix_chaque_objet 1 (obj-1))
+      |1 ->((les_objet 0),(Random.int 2)+1) :: (prix_chaque_objet 0 (obj-1))
+      |_ ->let existant =Random.int 2 in ((les_objet existant),(Random.int 2)+1) :: (prix_chaque_objet existant(obj-1))
+  in (prix_chaque_objet (-1) nb_objet)
 
-;;
 
-let affiche_marchandise = fun liste ->
+
+let affiche_marchandise :(Objet.type_obj * int ) list -> string= fun liste ->
+  
   if liste=[] then "Le marchand n'a rien aujourd'hui"
   else
     "Le marchand vend " ^
   let rec affiche = fun l ->
     match l with 
       |[] -> ""
-      |h :: t -> Objet.affiche_objet fst p""
+      |h :: t -> (Objet.affiche_objet (fst h) 1) ^"  : "^ (string_of_int (snd h)) ^ "  "^(Objet.affiche_objet (Objet.Piece) (snd h)) ^"\n" ^(affiche t)
+  in affiche liste
+  
+    
 
 
 	(**
@@ -273,7 +276,7 @@ let affiche_marchandise = fun liste ->
         hubAventure perso)
       |_ -> 
         raise Quitte_le_jeu
-      ;;
+      
 
 	(**
 		Affiche la raison de la fin de partie
@@ -286,3 +289,5 @@ let affiche_marchandise = fun liste ->
     message)
 
 end;;
+
+

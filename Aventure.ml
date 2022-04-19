@@ -2,7 +2,6 @@ open GestionAventure;;
 open Personnage;;
 open Monstre;;
 
-
 let personnage = GestionAventure.init_aventure();;
 let raison_fin = ref "";;     
 
