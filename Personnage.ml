@@ -125,6 +125,29 @@ struct
   if p.xp<10 then "0" ^ xp
   else xp
 
+  let chance_toucher : perso -> int = fun perso ->
+    let chance =
+    let add_bonus=5*((perso.niveau) -1 ) in
+    add_bonus + 
+    match perso.role with 
+      | Archer ->70
+      | Magicien-> 50
+      | Guerrier-> 30 
+     
+    in if chance >100 then 100 else chance
+
+    (**
+    Le nombre de dégats  que le personnage peut infliger à son adversaire selon sa classe 
+    si il arrive à toucher sa cible
+    @auteur
+    @param p le personnage qui inflige le dégat
+    @return le nombre de point de vie retirer à un monstre si jamais le personnage touche sa cible
+  *)
+  let nb_degats = fun p ->
+    match p.role with
+        | Archer -> 4 
+        | Magicien->5
+        | Guerrier ->10
   (**
     L'état du sac du personnage
     Si le sac n'est pas vide alors tous les objets contenus dans le sac seront pris en compte
@@ -161,7 +184,10 @@ struct
             else
               0+(auxi (0) (String.sub  s 1 (len-1)))))
       in
-      ((String.length st) - (auxi 0 st));;
+      ((String.length st) - (auxi 0 st))
+
+  let niveau_superieur = fun perso -> 
+  (int_of_float( 2.** (float)( perso.niveau) *.10. )) - perso.xp 
   
 (**
   L'état du personnage contenant le nom , la classe , le niveau, 
@@ -175,7 +201,7 @@ let etat_perso : perso -> string = fun perso ->
   let debut= "|  " in
   let fin="  |\n" in 
   let premiere_ligne = 
-    debut ^ perso.nom ^ "  |  " ^ (classe_genre perso) ^ "  niveau  " ^ (string_of_int(perso.niveau)) ^ fin in
+    debut ^ perso.nom ^ "    |    " ^ (classe_genre perso) ^ "  niveau  " ^ (string_of_int(perso.niveau)) ^ fin in
   let reference = nb_string premiere_ligne in
   let delimitateur = "+"^ (String.make (reference-2) '-') ^"+\n" in   
   let make_ligne = fun reference debut fin ligne point -> 
@@ -184,11 +210,17 @@ let etat_perso : perso -> string = fun perso ->
       let nb_espace = reference - taille_ligne in 
         debut_ligne ^( String.make nb_espace ' ' )^ point ^ fin )
   in 
-  let pv="Points de vie  |" in
-  let experience = make_ligne (String.length pv) "" "  |" "Expérience" "" in 
+  let toucher = "Chance de toucher  |" in
+  let pv =make_ligne (String.length toucher) "" "  |" "Points de vie" "" in
+  let experience = make_ligne (String.length toucher) "" "  |" "Expérience" "" in 
+  let degat = make_ligne (String.length toucher) "" "  |" "Dégâts" "" in
+  let level_sup = make_ligne (String.length toucher) "" "  |" "Niveau supérieur" "" in
     delimitateur^premiere_ligne ^delimitateur^
     (make_ligne reference debut fin pv (string_of_pv perso) ) ^ delimitateur^
     (make_ligne reference debut fin experience (string_of_xp perso) ) ^ delimitateur^
+    (make_ligne reference debut fin toucher (string_of_int  (chance_toucher perso)^"%") ) ^ delimitateur^
+    (make_ligne reference debut fin degat (string_of_int  (nb_degats perso)) ) ^ delimitateur^
+    (make_ligne reference debut fin level_sup (string_of_int  (niveau_superieur perso)) ) ^ delimitateur^
     (make_ligne reference debut fin "Sac" "" ) ^
   let rec chq_ligne_sac = fun reference debut fin s ->
     let len_s= String.length s in
@@ -235,6 +267,8 @@ let etat_perso : perso -> string = fun perso ->
       else 
         raise Personnage_mort
 
+  
+
   (**
         Le personnage frappe le monstre 
         Chaque classe a une certaine chance de toucher son cible 
@@ -243,15 +277,11 @@ let etat_perso : perso -> string = fun perso ->
         @param perso le personnage qui frappe le monstre 
         @return le nombre de dégat que le personnage inflige au monstre
   *)
-  let frapper : perso -> int = fun perso ->
-    let chance = Random.int 100 in  
-    let add_bonus=5*((perso.niveau) -1 ) in
-      match perso.role with 
-        | Archer when chance <70 + add_bonus -> 4
-        | Magicien when chance <50 +add_bonus ->5
-        | Guerrier when chance < 30 + add_bonus ->10
-        | _ -> 0
   
+    let frapper : perso -> int = fun perso ->
+      let chance = Random.int 100 in 
+      if chance < (chance_toucher perso ) then nb_degats perso
+      else 0 
   
    (**
     Pour savoir si le personnage possède un objet avec un certain quantité
@@ -351,20 +381,7 @@ let etat_perso : perso -> string = fun perso ->
           aux nouv_xp nouv_niveau
     in aux xp p.niveau
 
-  (**
-    Le nombre de dégats  que le personnage peut infliger à son adversaire selon sa classe 
-    si il arrive à toucher sa cible
-    @auteur
-    @param p le personnage qui inflige le dégat
-    @return le nombre de point de vie retirer à un monstre si jamais le personnage touche sa cible
-  *)
-  let nb_degats = fun p ->
-    let add_bonus=5*((p.niveau) -1 ) in
-    add_bonus +
-    match p.role with
-        | Archer -> 4 
-        | Magicien->5
-        | Guerrier ->10
+  
 
     
   (**
