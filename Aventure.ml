@@ -22,6 +22,5 @@ with
 ;;
 
 GestionAventure.fin_partie !raison_fin;;
-Score.compare_score ("10", "tfdfd");;
 Score.afficher_score();;
 
