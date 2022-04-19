@@ -8,7 +8,6 @@ sig
   val init_aventure : unit -> Personnage.perso
   val hubAventure : Personnage.perso -> unit
   val fin_partie : string -> unit
-  val stpl : 'a -> string
   val marchandises : unit -> (Objet.type_obj * int ) list 
   val affiche_marchandise :Personnage.perso ->(Objet.type_obj * int ) list -> Personnage.perso
 end;;
@@ -346,9 +345,6 @@ Au fait qui es-tu aventurier?\n") in
     print_string ("\n\n+---------------------------------Fin de partie----------------------------------+ \n" ^
     "> La partie s'est terminé car: \n" ^
     message)
-
-
-  let stpl = fun a -> "aaa"
 
 end;;
 

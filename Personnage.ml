@@ -22,10 +22,7 @@ sig
   val mis_a_jour_pv : float -> perso -> perso
   val dormir : perso -> perso
   val manger : perso -> (bool *perso)
-  (*val avoir_une_eponge : perso -> bool*)
   val afficher_infos_perso : perso -> unit
-  val init_sac :sac
-  (*val avoir_piece : perso ->int -> bool*)
  val avoir_objet : perso ->Objet.type_obj->int -> bool
 end;;
 
@@ -106,7 +103,6 @@ struct
   let init_perso : string -> genre -> classe -> perso = fun n -> fun g -> fun r ->
     {nom = n; sexe = g; role = r; pv = 20.; xp = 0; niveau = 1; sac = [{type_obj = Objet.Eponge; qte = 2}] }
 
-  let init_sac :sac = [{type_obj = Objet.Piece; qte = 0}]
   (**
     L'affichage du point de vie du personnage
     @auteur
@@ -219,88 +215,7 @@ let etat_perso : perso -> string = fun perso ->
   *)
    let afficher_sac_perso = fun perso -> print_string ( etat_sac perso)
   
- (* let vie_perso = fun perso -> 
-    if perso.pv = 1. || perso.pv = 2. || perso.pv = 3. || perso.pv = 4. || perso.pv = 5. || perso.pv = 6. || perso.pv = 7. || perso.pv = 8. || perso.pv = 9.
-      then "0" ^ string_of_float(perso.pv) ^ "/20." ^ " |"
-      else if perso.pv = 11. || perso.pv = 12. || perso.pv = 13. || perso.pv = 14. || perso.pv = 15. || perso.pv = 16. || perso.pv = 17. || perso.pv = 18. || perso.pv = 19. || perso.pv = 20.
-           then string_of_float(perso.pv) ^ "/20." ^ " |"
-           else if perso.pv <= 10. then string_of_float(perso.pv) ^ "/20." ^ " |"
-           else string_of_float(perso.pv) ^ "/20." ^ "|" 
-      
-  let chance_toucher = fun perso niveau -> match (perso.role, perso.niveau) with
-    | (Archer, n) -> if n > 2 then string_of_int(70+5*perso.niveau) else "70"
-    | (Guerrier, n) -> if n > 2 then string_of_int(30+5*perso.niveau) else "30" 
-    | (Magicien, n) -> if n > 2 then string_of_int(50+5*perso.niveau) else "50"
-      
-  let lvl_sup = fun perso -> if ((2.**float(perso.niveau))*.10.)-.float(perso.xp) > 100. || ((2.**float(perso.niveau))*.10.)-.float(perso.xp) < 0.
-      then "Niveau supérieur   : " ^ string_of_int(int_of_float(((2.**float(perso.niveau))*.10.)-.float(perso.xp))) ^ "     |"
-      else if ((2.**float(perso.niveau))*.10.)-.float(perso.xp) > 10. then "Niveau supérieur   : " ^ string_of_int(int_of_float(((2.**float(perso.niveau))*.10.)-.float(perso.xp))) ^ "      |"
-      else "Niveau supérieur   : 0" ^ string_of_int(int_of_float(((2.**float(perso.niveau))*.10.)-.float(perso.xp))) ^ "      |"
 
-
-  let rec presence_objet : objet list -> (objet list * string) = fun objets -> 
-    match objets with
-    | [] -> ([], "                  ")
-    | hd::tl -> (tl, Objet.visuel_objet hd.type_obj hd.qte)
-    
-  let experience_perso = fun perso -> if perso.xp > 99 
-    then "Expérience         : " ^ string_of_int perso.xp ^ "     | "
-    else if perso.xp > 9 then "Expérience         : " ^ string_of_int perso.xp ^ "      | "
-    else "Expérience         : " ^ "0" ^ string_of_int perso.xp ^ "      | "
-
-  let rec iterate : (int * ('a->'a) * 'a) -> 'a =
-    fun (count, f, initial_value) ->
-      if count <= 0
-      then initial_value
-      else iterate (count-1, f, f initial_value)
-  let ligne = fun perso -> String.length ("| " ^ perso.nom ^ " | " ^ (classe_genre perso) 
-                                          ^ "  Niveau " ^ string_of_int (perso.niveau) ^ "\n")   
-  let repeat_string = fun (s,ligne) -> iterate (ligne+1,( fun p -> p ^ s) , "")
-  
-  let affichage_ligne = fun chaine -> "+" ^ (repeat_string ("-", chaine)) ^ "+"
-  let affichage_fiche_perso = fun chaine -> chaine 
-  let affichage_attr_perso = fun chaine -> chaine
-  let _enclosing = fun chaine -> "| " ^ chaine 
-  let fermeture = fun chaine -> repeat_string(" ", String.length("+----------------- Fiche de personnage --------------+")-String.length(chaine)-4) ^ "|"
-  let fermer_tableau = fun chaine -> repeat_string(" ", String.length("+----------------- Fiche de personnage --------------+")-String.length(chaine)-3) ^ "|"
-    
-
-  let etat_perso = fun perso -> 
-    let sac = (presence_objet perso.sac) in
-    affichage_fiche_perso ("+---------------- Fiche de personnage ---------------+") ^ "\n" ^ 
-    _enclosing("Nom : " ^ perso.nom) ^ (fermeture ("Nom : " ^ perso.nom)) ^
-    repeat_string (" ", String.length("Niveau " ^ string_of_int (perso.niveau) ^ " Classe : " ^ (classe_genre perso))*2+1+String.length(perso.nom) - (String.length("Niveau " ^ string_of_int (perso.niveau) ^ " Classe : " ^ (classe_genre perso))- String.length(perso.nom))) ^ "\n" ^ 
-    _enclosing("Niveau " ^ string_of_int (perso.niveau) ^ "        Classe : " ^ (classe_genre perso)) ^ (fermeture ("Niveau " ^ string_of_int (perso.niveau) ^ "        Classe : " ^ (classe_genre perso))) ^
-    repeat_string (" ", String.length("Niveau " ^ string_of_int (perso.niveau) ^ " Classe : " ^ (classe_genre perso))-5) ^ "\n" ^ 
-    
-    
-    affichage_attr_perso("+---------- Attribut ------------------- Sac --------+") ^ "\n" ^ 
-    
-    _enclosing("Point de vie       : " ^ (vie_perso perso) ) ^ (snd sac) ^ " " ^ fermer_tableau("Point de vie :         " ^ (vie_perso perso) ^ (snd sac))  ^ 
-
-    let sac = (presence_objet (fst sac)) in
-    repeat_string(" ", String.length("Niveau " ^ string_of_int (perso.niveau) ^ " Classe : " ^ (classe_genre perso))*2-String.length("Point de vie : " ^ (string_of_float perso.pv))-2) ^ "\n" ^
-    _enclosing("Dégats             : " ^ (nb_degats (perso) ^ "      |")) ^ (snd sac) ^ fermer_tableau("Dégats :             " ^ (nb_degats (perso) ^ "      |") ^ (snd sac)) ^
-    
-    let sac = (presence_objet (fst sac)) in
-    repeat_string(" ", String.length("Niveau " ^ string_of_int (perso.niveau) ^ " Classe : " ^ (classe_genre perso))*2-String.length("Dégats :            " ^ (nb_degats (perso)))-2) ^ "\n" ^
-    _enclosing("Chances de toucher : " ^ (chance_toucher perso perso.niveau) ^ "      |") ^ (snd sac) ^ " "  ^ fermer_tableau("Chances de toucher :  " ^ (chance_toucher perso perso.niveau) ^ "      |" ^ (snd sac)) ^
-    
-    let sac = (presence_objet (fst sac)) in 
-    repeat_string(" ", String.length("Niveau " ^ string_of_int (perso.niveau) ^ " Classe : " ^ (classe_genre perso))*2-String.length("Chances de toucher : " ^ (chance_toucher perso perso.niveau))-2) ^ "\n" ^
-    _enclosing(experience_perso perso) ^ (snd sac) ^ fermer_tableau(experience_perso perso ^ (snd sac) ) ^
-
-    let sac = (presence_objet (fst sac)) in 
-    repeat_string(" ", String.length("Niveau " ^ string_of_int (perso.niveau) ^ " Classe : " ^ (classe_genre perso))*2-String.length("Expérience :          " ^ (string_of_int perso.xp )^ "      |")-2) ^ "\n" ^ 
-    _enclosing( lvl_sup perso ) ^ (snd sac) ^ fermer_tableau(lvl_sup perso ^ (snd sac)) ^ "\n" ^
-    
-    
-    affichage_ligne(String.length("+---------------- Fiche de personnage ------------+")) ^ "\n" 
-
-
-  let afficher_infos_perso = fun perso -> print_string(etat_perso perso)
-  *)
- 
   (**
     Mise à jour du point de vie du personnage en ajoutant ou en déduisant un point de vie donnée
     si le point de vie est supérieur à 20 on reste à 20
@@ -337,46 +252,15 @@ let etat_perso : perso -> string = fun perso ->
         | Guerrier when chance < 30 + add_bonus ->10
         | _ -> 0
   
-  (**
-    Pour savoir si le personnage possède un poulet
-    @auteur
-    @param pers le personnage dont on veut savoir s'il possède un poulet
-    @return true si il a un poulet dans son sac false sinon
-  *)
-  (*let avoir_un_poulet : perso -> bool = fun pers ->
-    let rec aux = fun sac -> 
-      match sac with
-        | [] -> false
-        | {type_obj=a; qte=b}::_ when a=Poulet && b>0 -> true
-        | h::t -> (*false ||*) aux t
-    in aux pers.sac*)
-
-  (**
-    Pour savoir si le personnage possède un poulet
-    @auteur
-    @param pers le personnage dont on veut savoir s'il possède un poulet
-    @return true si il a un poulet dans son sac false sinon
-  *)
-  (*let avoir_une_eponge : perso -> bool = fun pers ->
-    let rec aux = fun sac -> 
-      match sac with
-        | [] -> false
-        | {type_obj=a; qte=b}::_ when a=Eponge && b>0 -> true
-        | h::t -> (*false ||*) aux t
-    in aux pers.sac*)
+  
    (**
-    Pour savoir si le personnage possède un poulet
+    Pour savoir si le personnage possède un objet avec un certain quantité
     @auteur
-    @param pers le personnage dont on veut savoir s'il possède un poulet
-    @return true si il a un poulet dans son sac false sinon
+    @param pers le personnage dont on veut savoir s'il possède la quantité d'objet
+    @param obj l'objet à regarder s'il en possède
+    @param n la quantité minimum de l'objet requis
+    @return true si il a un l'objet avec la quantité nécessaire  dans son sac false sinon
   *)
-  (*let avoir_piece : perso ->int -> bool = fun pers n->
-    let rec aux = fun sac -> 
-      match sac with
-        | [] -> false
-        | {type_obj=a; qte=b}::_ when a=Piece && b>=n -> true
-        | h::t -> (*false ||*) aux t
-    in aux pers.sac*)
   
     let avoir_objet : perso ->Objet.type_obj->int -> bool = fun pers obj n->
       let rec aux = fun sac -> 
