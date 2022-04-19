@@ -6,7 +6,7 @@ sig
   type classe = Archer | Guerrier | Magicien
   type genre = Homme | Femme
   type objet
-  type sac 
+  type sac
   type perso = { nom : string ; sexe : genre ; role : classe ; pv : float ; xp :int  ; niveau : int  ; sac : sac}
 
   exception Personnage_mort
@@ -22,6 +22,7 @@ sig
   val mis_a_jour_pv : float -> perso -> perso
   val dormir : perso -> perso
   val manger : perso -> (bool *perso)
+  val avoir_une_eponge : perso -> bool
   val afficher_infos_perso : perso -> unit
 end;;
 
@@ -100,7 +101,7 @@ struct
     @return un personnage
   *)
   let init_perso : string -> genre -> classe -> perso = fun n -> fun g -> fun r ->
-    {nom = n; sexe = g; role = r; pv = 20.; xp = 0; niveau = 1; sac = [] }
+    {nom = n; sexe = g; role = r; pv = 20.; xp = 0; niveau = 1; sac = [{type_obj = Objet.Eponge; qte = 2}] }
 
   (**
     L'affichage du point de vie du personnage
@@ -343,6 +344,20 @@ let etat_perso : perso -> string = fun perso ->
       match sac with
         | [] -> false
         | {type_obj=a; qte=b}::_ when a=Poulet && b>0 -> true
+        | h::t -> (*false ||*) aux t
+    in aux pers.sac
+
+  (**
+    Pour savoir si le personnage possède un poulet
+    @auteur
+    @param pers le personnage dont on veut savoir s'il possède un poulet
+    @return true si il a un poulet dans son sac false sinon
+  *)
+  let avoir_une_eponge : perso -> bool = fun pers ->
+    let rec aux = fun sac -> 
+      match sac with
+        | [] -> false
+        | {type_obj=a; qte=b}::_ when a=Eponge && b>0 -> true
         | h::t -> (*false ||*) aux t
     in aux pers.sac
 

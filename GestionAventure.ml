@@ -17,7 +17,7 @@ struct
 		exception levée quand le joueur quitte l'aventure
 		@auteur 
 	*)
-  exception Quitte_le_jeu;;
+  exception Quitte_le_jeu
 
 	(**
 		Delimiteur de ligne pour chaque nouveau message de l'aventure
@@ -92,9 +92,20 @@ Votre choix: ")
         else 
           Personnage.Magicien)
 
-(*
-let rec read_action : unit -> string  = fun() ->
-  let () = print_string (delimiteur() ^ 
+  let rec read_fuite : unit -> string  = fun() ->
+    let () = print_string (delimiteur() ^ 
+"> Que voulez-vous faire
+  O) Offrir éponge 
+  C) Courir
+Votre choix: ") in
+  let c = read_line() in
+    if not(c="O" || c="o" || c="C" || c="c") then 
+      (print_string "il faut faire un choix\n"; read_fuite())
+    else 
+      c
+
+  let rec read_action : unit -> string  = fun() ->
+    let () = print_string (delimiteur() ^ 
 "> Que voulez-vous faire
   A) Attaquer  
   F) Fuir 
@@ -105,7 +116,6 @@ Votre choix: ") in
       (print_string "il faut faire un choix\n"; read_action())
     else 
       c
-*)
 
 	(**
 		Vérifie la validité du choix du joueur pour le hub d'aventure
@@ -171,6 +181,70 @@ Au fait qui es-tu aventurier?\n") in
               let nouv_pers=(Personnage.mis_a_jour_pv (-. degat ) p) 
               in le_combat 0 nouv_pers m
     in le_combat (Random.int 2) pers monstre
+      
+  (**
+		permet au joueur de fuire
+		@auteur 
+    @param pers le personnage principal
+	*)
+  let fuir : Personnage.perso -> Monstre.monstre -> Personnage.perso = fun perso -> fun monstre ->
+    let eponge = Personnage.avoir_une_eponge perso in
+    if eponge then
+      let c = read_fuite() in
+      if (c="o" || c="O") then 
+        (print_string(delimiteur() ^ "> Vous jetez une éponge au sol avant de fuire.\n");
+        if monstre.creature = Monstre.Golem then print_string("Vous voyez au loins le golem frotter l'éponge contre son corp puant.\n")
+        else if monstre.creature = Monstre.Sanglier then print_string("Vous voyez au loins le sanglier ce rouler sur l'éponge.\n")
+        else print_string("Vous voyez au loins la nuée de moustique attaquer l'éponge.\n");
+        Personnage.modifier_sac Objet.Eponge (-1) perso)
+      else 
+        let rand = Random.int 10 in
+        if rand < 5 then (print_string(delimiteur() ^ "> Le monstre vous rattrape et vous combat.\n"); combattre perso monstre)
+        else (print_string(delimiteur() ^ "> Vous arrivez à fuire et vous cacher du monstre.\n");perso)
+    else 
+      let rand = Random.int 10 in
+      if rand < 5 then (print_string(delimiteur() ^ "> Le monstre vous rattrape et vous combat.\n"); combattre perso monstre)
+      else (print_string(delimiteur() ^ "> Vous arrivez à fuire et vous cacher du monstre.\n");perso)
+
+
+  let choixAventure = fun perso -> fun monstre ->
+    let rec aux = fun perso ->
+      let choix = read_action() in
+      if choix = "A" || choix = "a" then (combattre perso monstre)
+      else if choix = "F" || choix = "f" then fuir perso monstre
+      else (print_string (delimiteur()); Personnage.afficher_infos_perso perso; aux perso)
+    in
+    aux perso
+
+
+
+  let marchandises : unit -> (Objet.type_obj * int ) list = fun () ->
+    let nb_objet = Random.int 3 in
+    let les_objet = fun hasard->
+      match hasard with
+      |0 -> Objet.Poulet
+      |_ -> Objet.Eponge
+    in
+    let rec prix_chaque_objet = fun existant obj  ->
+      match obj with
+        |0 -> []
+        |1 when existant =(-1)->let existant =Random.int 2 in ((les_objet existant),(Random.int 2)+1) :: (prix_chaque_objet existant(obj-1))
+        |1 when existant =0->((les_objet 1),(Random.int 2)+1) :: (prix_chaque_objet 1 (obj-1))
+        |1 ->((les_objet 0),(Random.int 2)+1) :: (prix_chaque_objet 0 (obj-1))
+        |_ ->let existant =Random.int 2 in ((les_objet existant),(Random.int 2)+1) :: (prix_chaque_objet existant(obj-1))
+    in (prix_chaque_objet (-1) nb_objet)
+
+
+
+  let affiche_marchandise :(Objet.type_obj * int ) list -> string= fun liste ->
+    if liste=[] then "Le marchand n'a rien aujourd'hui"
+    else
+      "Le marchand vend " ^
+    let rec affiche = fun l ->
+      match l with 
+        |[] -> ""
+        |h :: t -> (Objet.affiche_objet (fst h) 1) ^"  : "^ (string_of_int (snd h)) ^ "  "^(Objet.affiche_objet (Objet.Piece) (snd h)) ^"\n" ^(affiche t)
+    in affiche liste
 
 	(**
 		Génére une rencontre avec un monstre aléatoirement
@@ -182,71 +256,9 @@ Au fait qui es-tu aventurier?\n") in
       if rand < 50 then 
         let monstre = Monstre.init_monstre() in
         let () = print_string (delimiteur() ^ Monstre.message_malheureuse_rencontre monstre)
-        in (combattre perso monstre)
+        in (choixAventure perso monstre)
       else 
         perso
-      
-
-
-(*let fuir : Personnage.perso -> Personnage.perso = fun perso ->
-  let taille = List.length(perso.sac) in
-  if 0 < taille then 
-    (let obj = List.nth perso.sac (Random.int taille) in
-    let () = print_string (delimiteur() ^"> Vous perdez 1 " ^ Objet.affiche_objet obj.type_obj 1 ^"\n") in
-    let personnage = Personnage.modifier_sac obj.type_obj (-1) perso in
-    let rand = Random.int 10 in
-    if rand < 1 then malheureuse_rencontre personnage
-    else personnage)
-  else perso
-;;
-
-  let continuerAventure = fun perso ->
-  let monstre = Monstre.init_monstre() in
-  let () = 
-  if monstre.creature = Monstre.Golem then print_string (delimiteur() ^ "> Le sol tremble sous vos pied, vous êtes destabilisé. \nquand soudain un golem apparait devant vous.\n")
-  else if monstre.creature = Monstre.Sanglier then print_string (delimiteur() ^ "> Une odeur forte que vous connaissez bien, vous parvient. \nUn sanglier sort des bois et vous attaque.\n")
-  else print_string (delimiteur() ^ "> Vous entendez un bourdonnement tout autour de vous. \nQuand soudain une nué de moustique se jette sur vous.\n")
-  in   
-  let rec aux = fun perso ->
-    let choix = read_action() in
-    if choix = "A" || choix = "a" then (combattre 0 perso monstre)
-    else if choix = "F" || choix = "f" then fuir perso
-    else (print_string (delimiteur()); Personnage.afficher_infos_perso perso; aux perso)
-  in
-  aux perso
-;;*)
-
-let marchandises : unit -> (Objet.type_obj * int ) list = fun () ->
-  let nb_objet = Random.int 3 in
-  let les_objet = fun hasard->
-    match hasard with
-    |0 -> Objet.Poulet
-    |_ -> Objet.Eponge
-  in
-  let rec prix_chaque_objet = fun existant obj  ->
-    match obj with
-      |0 -> []
-      |1 when existant =(-1)->let existant =Random.int 2 in ((les_objet existant),(Random.int 2)+1) :: (prix_chaque_objet existant(obj-1))
-      |1 when existant =0->((les_objet 1),(Random.int 2)+1) :: (prix_chaque_objet 1 (obj-1))
-      |1 ->((les_objet 0),(Random.int 2)+1) :: (prix_chaque_objet 0 (obj-1))
-      |_ ->let existant =Random.int 2 in ((les_objet existant),(Random.int 2)+1) :: (prix_chaque_objet existant(obj-1))
-  in (prix_chaque_objet (-1) nb_objet)
-
-
-
-let affiche_marchandise :(Objet.type_obj * int ) list -> string= fun liste ->
-  
-  if liste=[] then "Le marchand n'a rien aujourd'hui"
-  else
-    "Le marchand vend " ^
-  let rec affiche = fun l ->
-    match l with 
-      |[] -> ""
-      |h :: t -> (Objet.affiche_objet (fst h) 1) ^"  : "^ (string_of_int (snd h)) ^ "  "^(Objet.affiche_objet (Objet.Piece) (snd h)) ^"\n" ^(affiche t)
-  in affiche liste
-  
-    
-
 
 	(**
 		affiche les hub de l'aventure avec les différents choix
