@@ -22,8 +22,11 @@ sig
   val mis_a_jour_pv : float -> perso -> perso
   val dormir : perso -> perso
   val manger : perso -> (bool *perso)
-  val avoir_une_eponge : perso -> bool
+  (*val avoir_une_eponge : perso -> bool*)
   val afficher_infos_perso : perso -> unit
+  val init_sac :sac
+  (*val avoir_piece : perso ->int -> bool*)
+ val avoir_objet : perso ->Objet.type_obj->int -> bool
 end;;
 
 
@@ -103,6 +106,7 @@ struct
   let init_perso : string -> genre -> classe -> perso = fun n -> fun g -> fun r ->
     {nom = n; sexe = g; role = r; pv = 20.; xp = 0; niveau = 1; sac = [{type_obj = Objet.Eponge; qte = 2}] }
 
+  let init_sac :sac = [{type_obj = Objet.Piece; qte = 0}]
   (**
     L'affichage du point de vie du personnage
     @auteur
@@ -339,13 +343,13 @@ let etat_perso : perso -> string = fun perso ->
     @param pers le personnage dont on veut savoir s'il possède un poulet
     @return true si il a un poulet dans son sac false sinon
   *)
-  let avoir_un_poulet : perso -> bool = fun pers ->
+  (*let avoir_un_poulet : perso -> bool = fun pers ->
     let rec aux = fun sac -> 
       match sac with
         | [] -> false
         | {type_obj=a; qte=b}::_ when a=Poulet && b>0 -> true
         | h::t -> (*false ||*) aux t
-    in aux pers.sac
+    in aux pers.sac*)
 
   (**
     Pour savoir si le personnage possède un poulet
@@ -353,14 +357,34 @@ let etat_perso : perso -> string = fun perso ->
     @param pers le personnage dont on veut savoir s'il possède un poulet
     @return true si il a un poulet dans son sac false sinon
   *)
-  let avoir_une_eponge : perso -> bool = fun pers ->
+  (*let avoir_une_eponge : perso -> bool = fun pers ->
     let rec aux = fun sac -> 
       match sac with
         | [] -> false
         | {type_obj=a; qte=b}::_ when a=Eponge && b>0 -> true
         | h::t -> (*false ||*) aux t
-    in aux pers.sac
-
+    in aux pers.sac*)
+   (**
+    Pour savoir si le personnage possède un poulet
+    @auteur
+    @param pers le personnage dont on veut savoir s'il possède un poulet
+    @return true si il a un poulet dans son sac false sinon
+  *)
+  (*let avoir_piece : perso ->int -> bool = fun pers n->
+    let rec aux = fun sac -> 
+      match sac with
+        | [] -> false
+        | {type_obj=a; qte=b}::_ when a=Piece && b>=n -> true
+        | h::t -> (*false ||*) aux t
+    in aux pers.sac*)
+  
+    let avoir_objet : perso ->Objet.type_obj->int -> bool = fun pers obj n->
+      let rec aux = fun sac -> 
+        match sac with
+          | [] -> false
+          | {type_obj=a; qte=b}::_ when a=obj && b>=n -> true
+          | h::t -> (*false ||*) aux t
+      in aux pers.sac
   (**
     Pour modifier le sac du personnage
     c'est-à-dire qu'on ajoute ou on enlève un type d'objet dans le sac du personnage
@@ -395,7 +419,7 @@ let etat_perso : perso -> string = fun perso ->
       @return true et le personnage enlevé d'un poulet dans son sac ou false et le personnage initial
   *)
   let manger : perso -> (bool *perso) = fun perso -> 
-    if (not(avoir_un_poulet perso) )  then 
+    if (not(avoir_objet  perso Objet.Poulet 1) )  then 
       (false,perso)
     else 
       (true, (modifier_sac (Objet.Poulet) (-1) (mis_a_jour_pv 2. perso)))

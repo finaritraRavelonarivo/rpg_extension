@@ -8,6 +8,9 @@ sig
   val init_aventure : unit -> Personnage.perso
   val hubAventure : Personnage.perso -> unit
   val fin_partie : string -> unit
+  val stpl : 'a -> string
+  val marchandises : unit -> (Objet.type_obj * int ) list 
+  val affiche_marchandise :Personnage.perso ->(Objet.type_obj * int ) list -> Personnage.perso
 end;;
 
 module GestionAventure : GESTIONAVENTURE_SIG=
@@ -125,6 +128,7 @@ Votre choix: ") in
   let rec read_hubAventure : unit -> string= fun () ->
     let () = print_string (delimiteur() ^
 "> Que voulez-vous faire?
+ A) Acheter chez le marchand
  C) Continuer votre chemin
  D) Dormir
  M) Manger
@@ -132,7 +136,7 @@ Votre choix: ") in
  Q) Quitter l'aventure
 Votre choix:") 
     in let c = read_line() in
-      if not(c="C" || c="D" || c="M" || c="V" || c="Q" || c="c" || c="d" || c="m" || c="v" || c="q") then
+      if not(c="A" || c="C" || c="D" || c="M" || c="V" || c="Q" || c="a" || c="c" || c="d" || c="m" || c="v" || c="q" ) then
         (print_string "il faut faire un choix\n"; read_hubAventure())
       else 
         c
@@ -188,13 +192,13 @@ Au fait qui es-tu aventurier?\n") in
     @param pers le personnage principal
 	*)
   let fuir : Personnage.perso -> Monstre.monstre -> Personnage.perso = fun perso -> fun monstre ->
-    let eponge = Personnage.avoir_une_eponge perso in
+    let eponge = Personnage.avoir_objet  perso Objet.Eponge 1 in
     if eponge then
       let c = read_fuite() in
       if (c="o" || c="O") then 
         (print_string(delimiteur() ^ "> Vous jetez une éponge au sol avant de fuire.\n");
-        if monstre.creature = Monstre.Golem then print_string("Vous voyez au loins le golem frotter l'éponge contre son corp puant.\n")
-        else if monstre.creature = Monstre.Sanglier then print_string("Vous voyez au loins le sanglier ce rouler sur l'éponge.\n")
+        if monstre.creature = Monstre.Golem then print_string("Vous voyez au loin le golem frotter l'éponge contre son corp puant.\n")
+        else if monstre.creature = Monstre.Sanglier then print_string("Vous voyez au loins le sanglier sVe rouler sur l'éponge.\n")
         else print_string("Vous voyez au loins la nuée de moustique attaquer l'éponge.\n");
         Personnage.modifier_sac Objet.Eponge (-1) perso)
       else 
@@ -235,17 +239,58 @@ Au fait qui es-tu aventurier?\n") in
     in (prix_chaque_objet (-1) nb_objet)
 
 
+    let acheter :(Objet.type_obj * int )  -> Personnage.perso -> Personnage.perso = fun marchandise p ->
+      if( Personnage.avoir_objet p Objet.Piece (snd marchandise)) then
 
-  let affiche_marchandise :(Objet.type_obj * int ) list -> string= fun liste ->
-    if liste=[] then "Le marchand n'a rien aujourd'hui"
-    else
-      "Le marchand vend " ^
-    let rec affiche = fun l ->
+      Personnage.modifier_sac (fst marchandise) 1 (Personnage.modifier_sac Piece (-(snd marchandise)) p)
+      else
+        let() = print_string (delimiteur() ^ ">Vous n'avez pas assez de pièces pour cet achat") in p
+     
+
+
+  let rec affiche_marchandise :Personnage.perso ->(Objet.type_obj * int ) list -> Personnage.perso= fun p liste ->
+    let debut =
+    if liste=[] then ">Le marchand part \n"
+   else
+      ">Choisissez ce dont vous avez besoin \n
+    Le marchand vend :\n" ^
+    let rec affiche = fun l i->
       match l with 
         |[] -> ""
-        |h :: t -> (Objet.affiche_objet (fst h) 1) ^"  : "^ (string_of_int (snd h)) ^ "  "^(Objet.affiche_objet (Objet.Piece) (snd h)) ^"\n" ^(affiche t)
-    in affiche liste
+        |h :: t ->(string_of_int i ) ^"  ) "^(Objet.affiche_objet (fst h) 1) ^"  : "^ (string_of_int (snd h)) ^ "  "^(Objet.affiche_objet (Objet.Piece) (snd h)) ^"\n" ^ (affiche t (i+1))
+    in (affiche liste 1)
+  in let () = print_string( delimiteur() ^ debut ^ "Q  ) partir\nVotre choix : ") 
+  in let c = read_line() in
+  let rec repValable = fun nombre ->
+  match nombre with
+  |0->[]
+  |_ -> (string_of_int nombre) :: repValable (nombre-1)  in
+ let les_reponses =  repValable (List.length liste) in
+  if c="Q" || c="q" then p
+  else 
+     
+    if(List.exists (fun i -> i=c) les_reponses) then
+      let nouv_pers=acheter (List.nth liste ((int_of_string c)-1) ) p  in
+    let   nouv_liste:(Objet.type_obj * int ) list -> string -> (Objet.type_obj * int ) list = fun l c -> 
+      if c="1" then List.tl l
+      else [List.hd l]
+    
+    in
+    affiche_marchandise nouv_pers (nouv_liste liste c)
+  else 
+    let () = print_string( "il faut faire un choix\n") in
+    affiche_marchandise p liste 
+  
 
+
+
+  (*let choisir_marchandise = fun marchandises -> 
+    match marchandises with 
+    |(Poulet,prix) -> "P "
+  
+  let acheter : Objet.type_obj -> Personnage.perso -> (Objet.type_obj * int ) list  -> Personnage.perso =
+  fun objet p marchandises ->*)
+    
 	(**
 		Génére une rencontre avec un monstre aléatoirement
 		@auteur 
@@ -268,6 +313,8 @@ Au fait qui es-tu aventurier?\n") in
   let rec hubAventure : Personnage.perso -> unit = fun perso ->
     let c = read_hubAventure() in
       match c with 
+      | _ when c="A" || c="a" -> hubAventure(malheureuse_rencontre(affiche_marchandise perso (marchandises())))
+  
       | _ when c ="C" || c="c" -> 
         (print_string (delimiteur() ^ "> Vous continuez votre chemin vers votre prochaine destination.\n"); 
         hubAventure (malheureuse_rencontre perso))
@@ -299,6 +346,9 @@ Au fait qui es-tu aventurier?\n") in
     print_string ("\n\n+---------------------------------Fin de partie----------------------------------+ \n" ^
     "> La partie s'est terminé car: \n" ^
     message)
+
+
+  let stpl = fun a -> "aaa"
 
 end;;
 
