@@ -1,5 +1,5 @@
 open GestionAventure;;
-open Score;;
+(*open Score;;*)
 open Personnage;;
 open Monstre;;
 
@@ -24,6 +24,6 @@ with
 ;;
 
 GestionAventure.fin_partie !raison_fin;;
-Score.afficher_score();;
+(*Score.afficher_score();;*)
 
 

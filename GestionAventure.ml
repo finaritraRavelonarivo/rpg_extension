@@ -303,6 +303,23 @@ Au fait qui es-tu aventurier?\n") in
         in (choixAventure perso monstre)
       else 
         perso
+  
+  let coffre_hub = fun perso ->
+    let objet= match Random.int 3 with
+    |0 -> Objet.Poulet
+    |1 ->Objet.Piece  
+    | _ ->  Objet.Eponge 
+  in
+    let () =
+    let article_objet = fun obj ->match obj with
+    |Objet.Poulet -> "un " 
+    | _ -> "une " 
+  in
+  print_string(delimiteur() ^ ">Félicitations, en ouvrant le coffre vous avez obtenu "^(article_objet objet) ^(Objet.affiche_objet objet 1) ^"\n")
+in
+Personnage.modifier_sac  objet 1 perso
+
+
 
 	(**
 		affiche les hub de l'aventure avec les différents choix
@@ -315,8 +332,10 @@ Au fait qui es-tu aventurier?\n") in
       | _ when c="A" || c="a" -> hubAventure(malheureuse_rencontre(affiche_marchandise perso (marchandises())))
   
       | _ when c ="C" || c="c" -> 
-        (print_string (delimiteur() ^ "> Vous continuez votre chemin vers votre prochaine destination.\n"); 
-        hubAventure (malheureuse_rencontre perso))
+        (print_string (delimiteur() ^ "> Vous continuez votre chemin vers votre prochaine destination.\n")); 
+        let p_apres_malheurese_rencontre = malheureuse_rencontre perso in 
+        hubAventure(coffre_hub p_apres_malheurese_rencontre)
+        
       | _ when c="D" || c="d" -> 
         (print_string (delimiteur() ^ "> Vous installez votre campement et tombez rapidement endormie.\n"); 
         hubAventure (malheureuse_rencontre (Personnage.dormir perso)))
