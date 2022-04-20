@@ -188,9 +188,11 @@ Au fait qui es-tu aventurier?\n") in
     in le_combat (Random.int 2) pers monstre
       
   (**
-		permet au joueur de fuire
+		Propose de fuire contre une épouge ou de courir et résout la fuite
 		@auteur 
-    @param pers le personnage principal
+    @param pers le personnage qui va combattre
+    @param monstre le monstre qui va combattre
+    @return le personnage après fuite ou combat
 	*)
   let fuir : Personnage.perso -> Monstre.monstre -> Personnage.perso = fun perso -> fun monstre ->
     let eponge = Personnage.avoir_objet  perso Objet.Eponge 1 in
@@ -211,8 +213,14 @@ Au fait qui es-tu aventurier?\n") in
       if rand < 5 then (print_string(delimiteur() ^ "> Le monstre vous rattrape et vous combat.\n"); combattre perso monstre)
       else (print_string(delimiteur() ^ "> Vous arrivez à fuire et vous cacher du monstre.\n");perso)
 
-
-  let choixAventure = fun perso -> fun monstre ->
+  (**
+		propose au joueur de combattre un monstre ou de fuire
+		@auteur 
+    @param pers le personnage qui va combattre
+    @param monstre le monstre qui va combattre
+    @return le nouvel état du joueur
+	*)
+  let choixAventure : Personnage.perso -> Monstre.monstre -> Personnage.perso = fun perso -> fun monstre ->
     let rec aux = fun perso ->
       let choix = read_action() in
       if choix = "A" || choix = "a" then (combattre perso monstre)
@@ -221,8 +229,11 @@ Au fait qui es-tu aventurier?\n") in
     in
     aux perso
 
-
-
+  (**
+		choisis les marchandise vendu par le vendeur
+		@auteur 
+    @return une liste d'objet et de quantité 
+	*)
   let marchandises : unit -> (Objet.type_obj * int ) list = fun () ->
     let nb_objet = Random.int 3 in
     let les_objet = fun hasard->
@@ -239,16 +250,27 @@ Au fait qui es-tu aventurier?\n") in
         |_ ->let existant =Random.int 2 in ((les_objet existant),(Random.int 2)+1) :: (prix_chaque_objet existant(obj-1))
     in (prix_chaque_objet (-1) nb_objet)
 
+  (**
+		Gestion de la transaction entre le personnage et le marchand
+		@auteur 
+    @param marchandise la liste des marchandises avec leurs quantité
+    @param p le personnage du joueur
+    @return le personnage du joueur après transaction
+	*)
+  let acheter :(Objet.type_obj * int )  -> Personnage.perso -> Personnage.perso = fun marchandise p ->
+    if( Personnage.avoir_objet p Objet.Piece (snd marchandise)) then
 
-    let acheter :(Objet.type_obj * int )  -> Personnage.perso -> Personnage.perso = fun marchandise p ->
-      if( Personnage.avoir_objet p Objet.Piece (snd marchandise)) then
+    Personnage.modifier_sac (fst marchandise) 1 (Personnage.modifier_sac Piece (-(snd marchandise)) p)
+    else
+      let() = print_string (delimiteur() ^ ">Vous n'avez pas assez de pièces pour cet achat") in p   
 
-      Personnage.modifier_sac (fst marchandise) 1 (Personnage.modifier_sac Piece (-(snd marchandise)) p)
-      else
-        let() = print_string (delimiteur() ^ ">Vous n'avez pas assez de pièces pour cet achat") in p
-     
-
-
+  (**
+		affichage du shop du marchand
+		@auteur 
+    @param pers le personnage qui va combattre
+    @param liste une liste d'objet et de quantité
+    @return le nouvel état du joueur
+	*)
   let rec affiche_marchandise :Personnage.perso ->(Objet.type_obj * int ) list -> Personnage.perso= fun p liste ->
     let debut =
     if liste=[] then ">Le marchand part \n"
@@ -260,38 +282,27 @@ Au fait qui es-tu aventurier?\n") in
         |[] -> ""
         |h :: t ->(string_of_int i ) ^"  ) "^(Objet.affiche_objet (fst h) 1) ^"  : "^ (string_of_int (snd h)) ^ "  "^(Objet.affiche_objet (Objet.Piece) (snd h)) ^"\n" ^ (affiche t (i+1))
     in (affiche liste 1)
-  in let () = print_string( delimiteur() ^ debut ^ "Q  ) partir\nVotre choix : ") 
-  in let c = read_line() in
-  let rec repValable = fun nombre ->
-  match nombre with
-  |0->[]
-  |_ -> (string_of_int nombre) :: repValable (nombre-1)  in
- let les_reponses =  repValable (List.length liste) in
-  if c="Q" || c="q" then p
-  else 
-     
-    if(List.exists (fun i -> i=c) les_reponses) then
-      let nouv_pers=acheter (List.nth liste ((int_of_string c)-1) ) p  in
-    let   nouv_liste:(Objet.type_obj * int ) list -> string -> (Objet.type_obj * int ) list = fun l c -> 
-      if c="1" then List.tl l
-      else [List.hd l]
-    
-    in
-    affiche_marchandise nouv_pers (nouv_liste liste c)
-  else 
-    let () = print_string( "il faut faire un choix\n") in
-    affiche_marchandise p liste 
-  
-
-
-
-  (*let choisir_marchandise = fun marchandises -> 
-    match marchandises with 
-    |(Poulet,prix) -> "P "
-  
-  let acheter : Objet.type_obj -> Personnage.perso -> (Objet.type_obj * int ) list  -> Personnage.perso =
-  fun objet p marchandises ->*)
-    
+    in let () = print_string( delimiteur() ^ debut ^ "Q  ) partir\nVotre choix : ") 
+    in let c = read_line() in
+    let rec repValable = fun nombre ->
+    match nombre with
+    |0->[]
+    |_ -> (string_of_int nombre) :: repValable (nombre-1)  in
+  let les_reponses =  repValable (List.length liste) in
+    if c="Q" || c="q" then p
+    else 
+      if(List.exists (fun i -> i=c) les_reponses) then
+        let nouv_pers=acheter (List.nth liste ((int_of_string c)-1) ) p  in
+      let   nouv_liste:(Objet.type_obj * int ) list -> string -> (Objet.type_obj * int ) list = fun l c -> 
+        if c="1" then List.tl l
+        else [List.hd l]
+      
+      in
+      affiche_marchandise nouv_pers (nouv_liste liste c)
+    else 
+      let () = print_string( "il faut faire un choix\n") in
+      affiche_marchandise p liste 
+      
 	(**
 		Génére une rencontre avec un monstre aléatoirement
 		@auteur 
@@ -306,20 +317,26 @@ Au fait qui es-tu aventurier?\n") in
       else 
         perso
   
+  (**
+		offre une récompense au joueur après chaque retour au hub 
+		@auteur 
+    @param pers le personnage qui va combattre
+    @return le personnage avec son nouvel inventaire
+	*)
   let coffre_hub = fun perso ->
     let objet= match Random.int 3 with
     |0 -> Objet.Poulet
     |1 ->Objet.Piece  
     | _ ->  Objet.Eponge 
-  in
+    in
     let () =
     let article_objet = fun obj ->match obj with
     |Objet.Poulet -> "un " 
     | _ -> "une " 
-  in
-  print_string(delimiteur() ^ ">Félicitations, en ouvrant le coffre vous avez obtenu "^(article_objet objet) ^(Objet.affiche_objet objet 1) ^"\n")
-in
-Personnage.modifier_sac  objet 1 perso
+    in
+    print_string(delimiteur() ^ ">Félicitations, en ouvrant le coffre vous avez obtenu "^(article_objet objet) ^(Objet.affiche_objet objet 1) ^"\n")
+    in
+    Personnage.modifier_sac  objet 1 perso
 
 
 
@@ -367,6 +384,12 @@ Personnage.modifier_sac  objet 1 perso
     "> La partie s'est terminé car: \n" ^
     message)
 
+  (**
+		modifie si nécessaire le tableau des scores et l'affiche
+		@auteur 
+    @param score un tuple de score et nom
+    @param ajout qui vérifie si on doit ajouter le nouveau score
+	*)
   let tableau_score : string*string -> bool -> unit = fun score -> fun ajout ->
     print_string ("+-------------------------------------Score--------------------------------------+ \n");
     if ajout then Score.compare_score score else ();

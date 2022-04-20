@@ -126,6 +126,12 @@ struct
   if element<10 then "0" ^ el
   else el
 
+    (**
+		Definit les chance de toucher en fonction de la classe du joueur
+		@auteur 
+    @param perso le personnage du joueur
+    @return la chance de toucher du personnage
+	*)
   let chance_toucher : perso -> int = fun perso ->
     let chance =
     let add_bonus=5*((perso.niveau) -1 ) in
@@ -190,52 +196,52 @@ struct
   let niveau_superieur = fun perso -> 
   (int_of_float( 2.** (float)( perso.niveau) *.10. )) - perso.xp 
   
-(**
-  L'état du personnage contenant le nom , la classe , le niveau, 
-  le point de vie, le point d'expérience et l'état du sac
-  @auteur 
-  @param perso le personnage dont on veut avoir l'état 
-  @return un texte d'affichage de l'état du personnage
+  (**
+    L'état du personnage contenant le nom , la classe , le niveau, 
+    le point de vie, le point d'expérience et l'état du sac
+    @auteur 
+    @param perso le personnage dont on veut avoir l'état 
+    @return un texte d'affichage de l'état du personnage
 
-*)
-let etat_perso : perso -> string = fun perso ->
-  let debut= "|  " in
-  let fin="  |\n" in 
-  let premiere_ligne = 
-    debut ^ perso.nom ^ "    |    " ^ (classe_genre perso) ^ "  niveau  " ^ (string_of_int(perso.niveau)) ^ fin in
-  let reference = nb_string premiere_ligne in
-  let delimitateur = "+"^ (String.make (reference-2) '-') ^"+\n" in   
-  let make_ligne = fun reference debut fin ligne point -> 
-      (let debut_ligne = debut ^ ligne in 
-      let taille_ligne = nb_string (debut_ligne^point^fin) in
-      let nb_espace = reference - taille_ligne in 
-        debut_ligne ^( String.make nb_espace ' ' )^ point ^ fin )
-  in 
-  let toucher = "Chance de toucher  |" in
-  let pv =make_ligne (String.length toucher) "" "  |" "Points de vie" "" in
-  let experience = make_ligne (String.length toucher) "" "  |" "Expérience" "" in 
-  let degat = make_ligne (String.length toucher) "" "  |" "Dégâts" "" in
-  let level_sup = make_ligne (String.length toucher) "" "  |" "Niveau supérieur" "" in
-    delimitateur^premiere_ligne ^delimitateur^
-    (make_ligne reference debut fin pv (string_of_pv perso) ) ^ delimitateur^
-    (make_ligne reference debut fin experience (string_of_element perso.xp) ) ^ delimitateur^
-    (make_ligne reference debut fin level_sup (string_of_element  (niveau_superieur perso)) ) ^ delimitateur^
-    (make_ligne reference debut fin toucher (string_of_element  (chance_toucher perso)^"%") ) ^ delimitateur^
-    (make_ligne reference debut fin degat (string_of_element  (nb_degats perso)) ) ^ delimitateur^
-    (make_ligne reference debut fin "Sac" "" ) ^
-    if (etat_sac perso)="" then 
-      (make_ligne reference (debut^"  ") fin "vide" "" ) ^ delimitateur
-    else
-  let rec chq_ligne_sac = fun reference debut fin s ->
-    let len_s= String.length s in
-      match s with 
-      |""-> ""
-      | _ -> let indice= String.index s '\n' in
-        let un_objet = String.sub s 0 (indice) in
-        (make_ligne reference (debut^"  ") fin un_objet "" ) ^ 
-        (chq_ligne_sac  reference debut fin ( String.sub s (indice+1) (len_s-indice-1)))
-    in
-   ( chq_ligne_sac reference debut fin  (etat_sac perso)) ^ delimitateur
+  *)
+  let etat_perso : perso -> string = fun perso ->
+    let debut= "|  " in
+    let fin="  |\n" in 
+    let premiere_ligne = 
+      debut ^ perso.nom ^ "    |    " ^ (classe_genre perso) ^ "  niveau  " ^ (string_of_int(perso.niveau)) ^ fin in
+    let reference = nb_string premiere_ligne in
+    let delimitateur = "+"^ (String.make (reference-2) '-') ^"+\n" in   
+    let make_ligne = fun reference debut fin ligne point -> 
+        (let debut_ligne = debut ^ ligne in 
+        let taille_ligne = nb_string (debut_ligne^point^fin) in
+        let nb_espace = reference - taille_ligne in 
+          debut_ligne ^( String.make nb_espace ' ' )^ point ^ fin )
+    in 
+    let toucher = "Chance de toucher  |" in
+    let pv =make_ligne (String.length toucher) "" "  |" "Points de vie" "" in
+    let experience = make_ligne (String.length toucher) "" "  |" "Expérience" "" in 
+    let degat = make_ligne (String.length toucher) "" "  |" "Dégâts" "" in
+    let level_sup = make_ligne (String.length toucher) "" "  |" "Niveau supérieur" "" in
+      delimitateur^premiere_ligne ^delimitateur^
+      (make_ligne reference debut fin pv (string_of_pv perso) ) ^ delimitateur^
+      (make_ligne reference debut fin experience (string_of_element perso.xp) ) ^ delimitateur^
+      (make_ligne reference debut fin level_sup (string_of_element  (niveau_superieur perso)) ) ^ delimitateur^
+      (make_ligne reference debut fin toucher (string_of_element  (chance_toucher perso)^"%") ) ^ delimitateur^
+      (make_ligne reference debut fin degat (string_of_element  (nb_degats perso)) ) ^ delimitateur^
+      (make_ligne reference debut fin "Sac" "" ) ^
+      if (etat_sac perso)="" then 
+        (make_ligne reference (debut^"  ") fin "vide" "" ) ^ delimitateur
+      else
+    let rec chq_ligne_sac = fun reference debut fin s ->
+      let len_s= String.length s in
+        match s with 
+        |""-> ""
+        | _ -> let indice= String.index s '\n' in
+          let un_objet = String.sub s 0 (indice) in
+          (make_ligne reference (debut^"  ") fin un_objet "" ) ^ 
+          (chq_ligne_sac  reference debut fin ( String.sub s (indice+1) (len_s-indice-1)))
+      in
+    ( chq_ligne_sac reference debut fin  (etat_sac perso)) ^ delimitateur
 
   (**
     Affichage de l'état du personnage 
@@ -397,11 +403,23 @@ let etat_perso : perso -> string = fun perso ->
       | 0 -> ( print_string "Vous portez une attaque, mais vous manquez votre cible \n")
       | _ -> ( print_string ("Vous frappez et infligez "^  (string_of_int(nb_degats p)) ^ " points de dégât \n"))
 
+  (**
+		Permet de calculer le nombre total d'items dans le sac du joueur
+		@auteur 
+    @param sac le sac du joueur
+    @return le nombre d'items
+	*)
   let rec nb_objet = fun sac ->
     match sac with 
     |hd::tl -> hd.qte + nb_objet tl
     |_ -> 0
 
+  (**
+		calcul le score du joueur en fonction des pv, du level, des items
+		@auteur 
+    @param perso le personnage du joueur
+    @return le score du joueur
+	*)
   let score  : perso -> string = fun perso ->
     let res = (int_of_float perso.pv) + (perso.niveau*10) + (nb_objet perso.sac) in string_of_int res
 end;;

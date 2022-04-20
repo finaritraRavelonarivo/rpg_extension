@@ -1,17 +1,42 @@
-module Score =
+module type SCORE_SIG = 
+sig
+  val afficher_score : unit -> unit
+  val compare_score : (string*string) -> unit
+end;;
+
+
+module Score : SCORE_SIG =
 struct
-  let validite_ligne = fun ic ->
+
+  (**
+    verifie si le fichier n'est pas finit de lire
+    @auteur 
+    @param in les données du fichier à traiter
+    @return un type some d'un tuple de string
+  *)
+  let validite_ligne : in_channel -> 'a option = fun ic ->
     try Some (input_line ic, input_line ic)
     with End_of_file -> None
   
-  let lire_ligne  = fun ic ->
+  (**
+    regarde chaque ligne pour l'ajouter à une liste
+    @auteur 
+    @param in les données du fichier à traiter 
+    @return une liste avec les noms et score des personnages contenu dans le fichier
+  *)
+  let lire_ligne : in_channel -> (string*string) list = fun ic ->
     let rec aux = fun score ->
       match validite_ligne ic with
       | Some ligne -> aux (score@[ligne])
       | None -> score
     in aux []
   
-  let rec lire_fichier = fun () ->
+  (**
+    regarde si le fichier existe ou le créait, puis l'ouvre
+    @auteur 
+    @return un une liste de tuple de string avec le score et le nom des personnage dans le fichier score.txt
+  *)
+  let rec lire_fichier : unit -> (string*string) list  = fun () ->
     let ic = 
     try open_in "score.txt"
     with Sys_error _ -> (let oc = open_out "score.txt" in close_out oc;  open_in "score.txt" )
@@ -19,7 +44,11 @@ struct
     let ligne = lire_ligne ic in
     (close_in ic; ligne)
 
-  let afficher_score = fun () ->
+  (**
+    affiche le tableau des score dans le terminal
+    @auteur 
+  *)
+  let afficher_score : unit -> unit = fun () ->
     let scores = (lire_fichier ()) in
     (let rec aux = fun l -> fun n ->
       match l with 
@@ -28,8 +57,14 @@ struct
       | _ -> ()
     in
     aux (scores) 1)
-
-  let ecrire_fichier = fun l -> fun oc ->
+  
+  (**
+    écrit dans le fichier le nouveau tableau des scores
+    @auteur 
+    @param l une liste des nom et score
+    @param oc l'output du fichier pour écrire dedans
+  *)  
+  let ecrire_fichier : (string*string) list -> out_channel -> unit = fun l -> fun oc ->
     let rec aux = fun l -> fun oc -> fun n ->
       match l with 
       | _ when n > 10 -> close_out oc
@@ -37,7 +72,13 @@ struct
       | _ -> close_out oc
     in aux l oc 1
 
-  let compare_score = fun (score, nom) ->
+  (**
+    ouvre le fichier score pour récupérer les scores déjà présent puis ajouter ou non le nouveau score du joueur
+    @auteur 
+    @param score le score du joueur
+    @param nom le nom du personnage
+  *)
+  let compare_score : (string*string) -> unit = fun (score, nom) ->
     let scores = lire_fichier () in   
     let new_scores = (score, nom)::scores in
     let compare = fun (score1,_) -> fun (score2,_) -> (int_of_string score2) - (int_of_string score1) in
