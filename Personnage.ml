@@ -102,7 +102,7 @@ struct
     @return un personnage
   *)
   let init_perso : string -> genre -> classe -> perso = fun n -> fun g -> fun r ->
-    {nom = n; sexe = g; role = r; pv = 20.; xp = 0; niveau = 1; sac = [{type_obj = Objet.Eponge; qte = 2}] }
+    {nom = n; sexe = g; role = r; pv = 20.; xp = 0; niveau = 1; sac = [] }
 
   (**
     L'affichage du point de vie du personnage
@@ -112,7 +112,7 @@ struct
   *)
   let string_of_pv : perso -> string = fun p ->
   let pv=(string_of_float p.pv) in 
-  if p.pv <10. then "0" ^ pv
+  if p.pv <10.0 then "0" ^ pv
   else pv
 
   (**
@@ -121,10 +121,10 @@ struct
     @param p le personnage dont on veut afficher le point d'expérience
     @return un string du point d'expérience du personnage
   *)
-  let string_of_xp : perso -> string = fun p ->
-  let xp = (string_of_int p.xp) in 
-  if p.xp<10 then "0" ^ xp
-  else xp
+  let string_of_element : int-> string = fun  element->
+  let el = (string_of_int element) in 
+  if element<10 then "0" ^ el
+  else el
 
   let chance_toucher : perso -> int = fun perso ->
     let chance =
@@ -218,11 +218,14 @@ let etat_perso : perso -> string = fun perso ->
   let level_sup = make_ligne (String.length toucher) "" "  |" "Niveau supérieur" "" in
     delimitateur^premiere_ligne ^delimitateur^
     (make_ligne reference debut fin pv (string_of_pv perso) ) ^ delimitateur^
-    (make_ligne reference debut fin experience (string_of_xp perso) ) ^ delimitateur^
-    (make_ligne reference debut fin toucher (string_of_int  (chance_toucher perso)^"%") ) ^ delimitateur^
-    (make_ligne reference debut fin degat (string_of_int  (nb_degats perso)) ) ^ delimitateur^
-    (make_ligne reference debut fin level_sup (string_of_int  (niveau_superieur perso)) ) ^ delimitateur^
+    (make_ligne reference debut fin experience (string_of_element perso.xp) ) ^ delimitateur^
+    (make_ligne reference debut fin level_sup (string_of_element  (niveau_superieur perso)) ) ^ delimitateur^
+    (make_ligne reference debut fin toucher (string_of_element  (chance_toucher perso)^"%") ) ^ delimitateur^
+    (make_ligne reference debut fin degat (string_of_element  (nb_degats perso)) ) ^ delimitateur^
     (make_ligne reference debut fin "Sac" "" ) ^
+    if (etat_sac perso)="" then 
+      (make_ligne reference (debut^"  ") fin "vide" "" ) ^ delimitateur
+    else
   let rec chq_ligne_sac = fun reference debut fin s ->
     let len_s= String.length s in
       match s with 

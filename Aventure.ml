@@ -1,5 +1,5 @@
 open GestionAventure;;
-(*open Score;;*)
+
 open Personnage;;
 open Monstre;;
 
