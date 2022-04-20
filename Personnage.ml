@@ -9,7 +9,7 @@ sig
   type sac
   type perso = { nom : string ; sexe : genre ; role : classe ; pv : float ; xp :int  ; niveau : int  ; sac : sac}
 
-  exception Personnage_mort of perso
+  exception Personnage_mort 
   exception LevelMax of perso
   exception Tue_En_Dormant of Monstre.monstre
   exception Objet_insuffisant of Objet.type_obj
@@ -24,6 +24,7 @@ sig
   val manger : perso -> (bool *perso)
   val afficher_infos_perso : perso -> unit
   val avoir_objet : perso ->Objet.type_obj->int -> bool
+  val score : perso -> string
 end;;
 
 
@@ -60,7 +61,7 @@ struct
     Une exception quand le personnage est mort
     @auteur
   *)
-  exception Personnage_mort of perso
+  exception Personnage_mort
   (**
     Une exception quand le personnage atteint le niveau 10
     @auteur
@@ -265,17 +266,15 @@ let etat_perso : perso -> string = fun perso ->
       if (perso.pv +. ajoutPv > 0.) then 
         {nom = perso.nom; sexe = perso.sexe; role = perso.role; pv = perso.pv+.ajoutPv; xp = perso.xp; niveau = perso.niveau; sac = perso.sac }
       else 
-        raise (Personnage_mort perso)
-
-  
+        raise Personnage_mort 
 
   (**
-        Le personnage frappe le monstre 
-        Chaque classe a une certaine chance de toucher son cible 
-        et selon son niveau un certain nombre de point de vie est déduit de son cible s'il arrive à le toucher
-        @auteur
-        @param perso le personnage qui frappe le monstre 
-        @return le nombre de dégat que le personnage inflige au monstre
+    Le personnage frappe le monstre 
+    Chaque classe a une certaine chance de toucher son cible 
+    et selon son niveau un certain nombre de point de vie est déduit de son cible s'il arrive à le toucher
+    @auteur
+    @param perso le personnage qui frappe le monstre 
+    @return le nombre de dégat que le personnage inflige au monstre
   *)
   
     let frapper : perso -> int = fun perso ->
@@ -380,9 +379,6 @@ let etat_perso : perso -> string = fun perso ->
           let nouv_niveau = le_niveau +1 in 
           aux nouv_xp nouv_niveau
     in aux xp p.niveau
-
-  
-
     
   (**
     Affichage du message quand le personnage frappe 
@@ -393,11 +389,17 @@ let etat_perso : perso -> string = fun perso ->
     @param frappe la frappe du personnage si c'est 0 alors il a manqué sa cible sinon il l'a eu
     
   *)
-  let affiche_attaque :perso -> int -> unit = fun p frappe ->    
+  let affiche_attaque : perso -> int -> unit = fun p frappe ->    
     match frappe with 
       | 0 -> ( print_string "Vous portez une attaque, mais vous manquez votre cible \n")
       | _ -> ( print_string ("Vous frappez et infligez "^  (string_of_int(nb_degats p)) ^ " points de dégât \n"))
 
+  let rec nb_objet = fun sac ->
+    match sac with 
+    |hd::tl -> hd.qte + nb_objet tl
+    |_ -> 0
 
+  let score  : perso -> string = fun perso ->
+    let res = (int_of_float perso.pv) + (perso.niveau*10) + (nb_objet perso.sac) in string_of_int res
 end;;
 

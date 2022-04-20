@@ -3,7 +3,8 @@ open GestionAventure;;
 open Personnage;;
 open Monstre;;
 
-let personnage = GestionAventure.init_aventure();;
+let personnage = ref (GestionAventure.init_aventure());;
+let ajout_score = ref false
 let raison_fin = ref "";;    
 
 (**
@@ -12,16 +13,16 @@ let raison_fin = ref "";;
   @catch la raison de fin de partie
 *)
 try 
-  GestionAventure.hubAventure personnage
+  GestionAventure.hubAventure !personnage
 
 with 
-  | Personnage.Personnage_mort perso -> personnage = perso; raison_fin := "Vous êtes mort. Vous pouvez rejouer pour espérer faire mieux. \n\n"
-  | Personnage.Tue_En_Dormant a ->  raison_fin := Monstre.nom_monstre_tueur_nuit a^" vous a tué dans la nuit.\nC'est pour cette raison que personne ne part seul à l'aventure\n\n"
-  | Personnage.LevelMax perso -> personnage = perso; raison_fin := "Votre aventure est terminée, vous êtes la personne la plus expérimentée au monde. \n(même les développeurs on dû tricher pour voir ce message)\n\n"
-  | GestionAventure.Quitte_le_jeu perso -> personnage = perso; raison_fin := "Votre personnage part à la retraite.\nVous ne mourrez pas aujourd'hui, du moins cette fois-ci\n\n"
+  | Personnage.Personnage_mort -> raison_fin := "Vous êtes mort. Vous pouvez rejouer pour espérer faire mieux. \n\n"
+  | Personnage.Tue_En_Dormant a -> raison_fin := Monstre.nom_monstre_tueur_nuit a^" vous a tué dans la nuit.\nC'est pour cette raison que personne ne part seul à l'aventure\n\n"
+  | Personnage.LevelMax perso -> ajout_score := true; personnage := perso; raison_fin := "Votre aventure est terminée, vous êtes la personne la plus expérimentée au monde. \n(même les développeurs on dû tricher pour voir ce message)\n\n"
+  | GestionAventure.Quitte_le_jeu perso -> ajout_score := true; personnage := perso; raison_fin := "Votre personnage part à la retraite.\nVous ne mourrez pas aujourd'hui, du moins cette fois-ci\n\n"
 ;;
 
 GestionAventure.fin_partie !raison_fin;;
-GestionAventure.tableau_score ("10000", personnage.nom);;
+GestionAventure.tableau_score (Personnage.score !personnage, !personnage.nom) !ajout_score;;
 
 

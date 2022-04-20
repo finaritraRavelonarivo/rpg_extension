@@ -9,7 +9,7 @@ sig
   val init_aventure : unit -> Personnage.perso
   val hubAventure : Personnage.perso -> unit
   val fin_partie : string -> unit
-  val tableau_score : string*string -> unit
+  val tableau_score : string*string -> bool -> unit
   val marchandises : unit -> (Objet.type_obj * int ) list 
   val affiche_marchandise :Personnage.perso ->(Objet.type_obj * int ) list -> Personnage.perso
 end;;
@@ -367,9 +367,9 @@ Personnage.modifier_sac  objet 1 perso
     "> La partie s'est terminé car: \n" ^
     message)
 
-  let tableau_score : string*string -> unit = fun (score, nom) ->
+  let tableau_score : string*string -> bool -> unit = fun score -> fun ajout ->
     print_string ("+-------------------------------------Score--------------------------------------+ \n");
-    Score.compare_score (score, nom);
+    if ajout then Score.compare_score score else ();
     Score.afficher_score ()
 
 end;;
