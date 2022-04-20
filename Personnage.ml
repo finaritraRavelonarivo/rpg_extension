@@ -9,9 +9,9 @@ sig
   type sac
   type perso = { nom : string ; sexe : genre ; role : classe ; pv : float ; xp :int  ; niveau : int  ; sac : sac}
 
-  exception Personnage_mort
-  exception LevelMax
-  exception Tue_En_Dormant of Monstre.monstre 
+  exception Personnage_mort of perso
+  exception LevelMax of perso
+  exception Tue_En_Dormant of Monstre.monstre
   exception Objet_insuffisant of Objet.type_obj
 
   val init_perso : string -> genre -> classe -> perso
@@ -23,7 +23,7 @@ sig
   val dormir : perso -> perso
   val manger : perso -> (bool *perso)
   val afficher_infos_perso : perso -> unit
- val avoir_objet : perso ->Objet.type_obj->int -> bool
+  val avoir_objet : perso ->Objet.type_obj->int -> bool
 end;;
 
 
@@ -60,12 +60,12 @@ struct
     Une exception quand le personnage est mort
     @auteur
   *)
-  exception Personnage_mort
+  exception Personnage_mort of perso
   (**
     Une exception quand le personnage atteint le niveau 10
     @auteur
   *)
-  exception LevelMax
+  exception LevelMax of perso
   (**
     Une exception quand le personnage est tué quand il dort
     par un monstre
@@ -265,7 +265,7 @@ let etat_perso : perso -> string = fun perso ->
       if (perso.pv +. ajoutPv > 0.) then 
         {nom = perso.nom; sexe = perso.sexe; role = perso.role; pv = perso.pv+.ajoutPv; xp = perso.xp; niveau = perso.niveau; sac = perso.sac }
       else 
-        raise Personnage_mort
+        raise (Personnage_mort perso)
 
   
 
@@ -371,7 +371,7 @@ let etat_perso : perso -> string = fun perso ->
     let rec aux : int -> int -> perso= fun le_xp le_niveau ->
       let xp_final_du_niveau =int_of_float( (2. ** float(le_niveau) )*. 10. )in 
       if le_niveau = 10 then
-        raise LevelMax
+        raise (LevelMax p)
       else 
         if le_xp < xp_final_du_niveau then
           {nom = p.nom ; sexe = p.sexe; role = p.role; pv = p.pv; xp = le_xp; niveau =le_niveau ; sac = p.sac }

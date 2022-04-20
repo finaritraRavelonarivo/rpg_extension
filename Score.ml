@@ -17,30 +17,32 @@ struct
     with Sys_error _ -> (let oc = open_out "score.txt" in close_out oc;  open_in "score.txt" )
     in
     let ligne = lire_ligne ic in
-    close_in ic; (ligne)
+    (close_in ic; ligne)
 
   let afficher_score = fun () ->
-    let rec aux = fun l ->
+    let scores = (lire_fichier ()) in
+    (let rec aux = fun l -> fun n ->
       match l with 
-      | (score, nom)::tl -> nom ^ " " ^ score ^ "\n" ^ aux tl
-      | _ -> ""
+      | (score, nom)::tl when n >= 10 -> print_string ((string_of_int n) ^ ": - " ^ nom ^ " - " ^ score ^ " -\n")
+      | (score, nom)::tl -> print_string ((string_of_int n) ^ ":  - " ^ nom ^ " - " ^ score ^ " -\n"); aux tl (n+1)
+      | _ -> ()
     in
-    aux (lire_fichier ())
+    aux (scores) 1)
 
-  let rec ecrire_fichier = fun l ->
-    let oc = open_out "score.txt" in 
-    match l with 
-    | (score, nom)::tl -> (Printf.fprintf oc "%s\n" nom; Printf.fprintf oc "%s\n" score; ecrire_fichier tl) 
-    | _ -> close_out oc
+  let ecrire_fichier = fun l -> fun oc ->
+    let rec aux = fun l -> fun oc -> fun n ->
+      match l with 
+      | _ when n > 10 -> close_out oc
+      | (score, nom)::tl -> (Printf.fprintf oc "%s\n" nom; Printf.fprintf oc "%s\n" score; aux tl oc (n+1)) 
+      | _ -> close_out oc
+    in aux l oc 1
 
-  (*let compare_score = fun (score, nom) ->
+  let compare_score = fun (score, nom) ->
     let scores = lire_fichier () in   
     let new_scores = (score, nom)::scores in
-    let compare = fun (score,_) -> fun (score2,_) -> (int_of_string score) - (int_of_string score2) in
-    let org_scores = List.sort compare new_scores in
-    if List.length (org_scores) > 10 then 
-      ecrire_fichier (List.rev (List.tl (List.rev org_scores)))
-    else 
-      ecrire_fichier org_scores*)
+    let compare = fun (score1,_) -> fun (score2,_) -> (int_of_string score2) - (int_of_string score1) in
+    let org_scores = List.sort compare new_scores in 
+    let oc = open_out "score.txt" in 
+    ecrire_fichier org_scores oc; 
 
 end;;

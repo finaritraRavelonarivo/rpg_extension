@@ -1,13 +1,15 @@
 open Objet;;
 open Monstre;;
 open Personnage;;
+open Score;;
 
 module type GESTIONAVENTURE_SIG = 
 sig
-  exception Quitte_le_jeu
+  exception Quitte_le_jeu of Personnage.perso
   val init_aventure : unit -> Personnage.perso
   val hubAventure : Personnage.perso -> unit
   val fin_partie : string -> unit
+  val tableau_score : string*string -> unit
   val marchandises : unit -> (Objet.type_obj * int ) list 
   val affiche_marchandise :Personnage.perso ->(Objet.type_obj * int ) list -> Personnage.perso
 end;;
@@ -19,7 +21,7 @@ struct
 		exception levée quand le joueur quitte l'aventure
 		@auteur 
 	*)
-  exception Quitte_le_jeu
+  exception Quitte_le_jeu of Personnage.perso
 
 	(**
 		Delimiteur de ligne pour chaque nouveau message de l'aventure
@@ -352,7 +354,7 @@ Personnage.modifier_sac  objet 1 perso
         Personnage.afficher_infos_perso perso; 
         hubAventure perso)
       |_ -> 
-        raise Quitte_le_jeu
+        raise (Quitte_le_jeu perso)
       
 
 	(**
@@ -364,6 +366,11 @@ Personnage.modifier_sac  objet 1 perso
     print_string ("\n\n+---------------------------------Fin de partie----------------------------------+ \n" ^
     "> La partie s'est terminé car: \n" ^
     message)
+
+  let tableau_score : string*string -> unit = fun (score, nom) ->
+    print_string ("+-------------------------------------Score--------------------------------------+ \n");
+    Score.compare_score (score, nom);
+    Score.afficher_score ()
 
 end;;
 
