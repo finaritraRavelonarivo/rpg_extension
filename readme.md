@@ -16,6 +16,7 @@ Pour ce faire vous vous déplacerez de hub en hub afin d'acquérir fortune et re
   * Fuir
   * Tableau de score
   * Coffre
+  * Nouvelle fiche de personnage
 
 ---
 # Jeu de base
@@ -66,7 +67,7 @@ Une fois que vous vous serez familiarisé avec le jeu de base. Vous pourrez joue
 
 ## Marchand 
 Le marchand redonne un vrai intérêt aux pièces. vous pourrez maintenant dépenser vos pièces contre des objets utiles à votre aventure.  
-Vous trouverez le marchand au niveau de chaque hub. Ils vous proposeront des items en quantité et prix différent à chaque hub, donc n'hésitez pas trop à acheter un objet utile et pas cher si vous tombez sur une super affaire.
+Vous trouverez le marchand au niveau de chaque hub. Ils vous proposeront des items avec des prix variable à chaque hub, donc n'hésitez pas trop à acheter un objet utile et pas cher si vous tombez sur une super affaire.
 
 ## Fuir
 Fini de mourir face à un golem alors que vous êtes level 1. Dans cette extension vous pourrez fuir à chaque combat.   
@@ -82,3 +83,6 @@ _Le score sera calculé en fonction de vos pv, nombre d'objets dans votre invent
 ## Coffre
 Pour vous offrir plus de chance de réussir dans votre aventure et vous donner envie de continuer votre aventure, nous avons eu l'idée d'ajouter un coffre à chaque hub que vous visiterez.
 Profitez d'un coffre unique à chaque hub et profitez-en pour battre votre score.
+
+## Nouvelle fiche de personnage   
+Cette fiche de personnage amélioré vous indiquera beaucoup plus d'information et vous permettra de mieux planifier votre aventure. Parmi les nouveautés, vous trouverez: le nombre de points d'expérience avant votre montée de level, votre chance de toucher, ainsi que les dégâts de votre personnage.
