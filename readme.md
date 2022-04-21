@@ -17,7 +17,7 @@ Pour ce faire vous vous déplacerez de hub en hub afin d'acquérir fortune et re
   * Tableau de score
   * Coffre
   * Nouvelle fiche de personnage
-* Installation
+* Exécution
   * Jeu de base
   * Extension
 
@@ -91,7 +91,7 @@ Profitez d'un coffre unique à chaque hub et profitez-en pour battre votre score
 Cette fiche de personnage amélioré vous indiquera beaucoup plus d'information et vous permettra de mieux planifier votre aventure. Parmi les nouveautés, vous trouverez: le nombre de points d'expérience avant votre montée de level, votre chance de toucher, ainsi que les dégâts de votre personnage.
 
 ---
-# exécution
+# Exécution
 
 Pour lancer le jeu il vous faudra un IDE (de préférence vscode) avec ocamlc installé sur votre ordinateur. Il vous suffira alors d'éxécuter les deux commandes suivantes dans l'ordre:
 
