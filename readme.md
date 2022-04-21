@@ -23,7 +23,6 @@ Dans cette version de base du jeu, vous retrouverez tous les éléments classiqu
 Du monstre qui règne dans les bois au loot et xp à gogo. Prenez place dans une aventure simple, mais efficace
 depuis le confort de votre canapé.
 
----
 ## Comment jouer 
 Lors du lancement du jeu, vous pourrez choisir un nom, puis choisirez votre genre, enfin vous choisirez votre classe parmi un choix de 3 classes exceptionnel.  
 Vous voilà fin prêt à partir à l'aventure avec votre personnage fraichement créé.    
@@ -65,7 +64,6 @@ _Une très bonne classe pour les gens voulant une classe équilibrée_
 
 Une fois que vous vous serez familiarisé avec le jeu de base. Vous pourrez jouer avec quelques extensions qui rajouteront du contenu au jeu.
 
----
 ## Marchand 
 Le marchand redonne un vrai intérêt aux pièces. vous pourrez maintenant dépenser vos pièces contre des objets utiles à votre aventure.  
 Vous trouverez le marchand au niveau de chaque hub. Ils vous proposeront des items en quantité et prix différent à chaque hub, donc n'hésitez pas trop à acheter un objet utile et pas cher si vous tombez sur une super affaire.
