@@ -99,5 +99,11 @@ ocamlc Objet.ml Monstre.ml Personnage.ml GestionAventure.ml Main.ml -o rpg.exe
 ```
 ```bash
 ocamlrun rpg.exe
+```   
+## Extension
+```bash 
+ocamlc Objet.ml Monstre.ml Personnage.ml Score.ml GestionAventure.ml Main.ml -o rpg.exe
+```
+```bash
+ocamlrun rpg.exe
 ``` 
-
