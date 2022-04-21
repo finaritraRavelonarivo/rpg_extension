@@ -17,6 +17,7 @@ Pour ce faire vous vous déplacerez de hub en hub afin d'acquérir fortune et re
   * Tableau de score
   * Coffre
   * Nouvelle fiche de personnage
+* Installation
 
 ---
 # Jeu de base
@@ -86,3 +87,17 @@ Profitez d'un coffre unique à chaque hub et profitez-en pour battre votre score
 
 ## Nouvelle fiche de personnage   
 Cette fiche de personnage amélioré vous indiquera beaucoup plus d'information et vous permettra de mieux planifier votre aventure. Parmi les nouveautés, vous trouverez: le nombre de points d'expérience avant votre montée de level, votre chance de toucher, ainsi que les dégâts de votre personnage.
+
+---
+# exécution
+
+Pour lancer le jeu il vous faudra un IDE (de préférence vscode) avec ocamlc installé sur votre ordinateur. Il vous suffira alors d'éxécuter les deux commandes suivantes dans l'ordre:
+
+## Jeu de base
+```bash 
+ocamlc Objet.ml Monstre.ml Personnage.ml GestionAventure.ml Main.ml -o rpg.exe
+```
+```bash
+ocamlrun rpg.exe
+``` 
+
