@@ -18,6 +18,8 @@ Pour ce faire vous vous déplacerez de hub en hub afin d'acquérir fortune et re
   * Coffre
   * Nouvelle fiche de personnage
 * Installation
+  * Jeu de base
+  * Extension
 
 ---
 # Jeu de base
