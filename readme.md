@@ -129,26 +129,26 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __delimiteur__ affiche un délimiteur visuel entre chaque action dans le terminal
   * fonction __read\_nom__ vérifie la validité d'un nom de personnage
   * fonction __read\_genre__ retourne un genre en fonction de la saisie de l'utilisateur
-  * fonction __read\_classe__ renvoie la classe désiré lors de la saisie
+  * fonction __read\_classe__ renvoie la classe désirée lors de la saisie
   * fonction __read\_hubAventure__ permet la sélection d'action dans le hub
   * fonction __init\_aventure__ initialisation de l'aventure
-  * fonction __malheureuse_rencontre__ gére les malheureuse_rencontre entre le personnage et les monstres
+  * fonction __malheureuse_rencontre__ gère les malheureuse_rencontre entre le personnage et les monstres
   * fonction __hubAventure__ gestion des divers choix du joueur pour progresser dans l'aventure
   * fonction __fin\_partie__ gestion de l'affichage de fin de partie
 * Main.ml
-  * mise en place total du Main.ml
+  * mise en place totale du Main.ml
 * Monstre.ml
-  * fonction __message\_malheureuse\_rencontre__ affiche les messages liés au malheureuse rencontre
+  * fonction __message\_malheureuse\_rencontre__ affiche les messages liés aux malheureuses rencontres
 * Personnage.ml
   * exception __Personnage\_mort__ permet de savoir si le personnage est mort
   * exception __LevelMax__ permet de savoir si le personnage est level 10
   * fonction __init\_perso__ initialise le personnage
-  * fonction __etat\_sac__ permet de compter le nombre d'objet avec leur quantité
-  * fonction __mis\_a\_jour\_pv__ gére le changement de point de vie du joueur et vérifie s'il est mort
-  * fonction __avoir\_objet__ vérifie si le joueur posséde un objet passé en paramêtre
+  * fonction __etat\_sac__ permet de compter le nombre d'objets avec leur quantité
+  * fonction __mis\_a\_jour\_pv__ gère le changement de point de vie du joueur et vérifie s'il est mort
+  * fonction __avoir\_objet__ vérifie si le joueur possède un objet passé en paramètre
   * fonction __modifier\_sac__ gestion de la modification du contenu du sac du joueur
-  * fonction __manger__ gére l'action de manger du personnage
-  * fonction __changement\_niveau__ gestion de la monté de niveau du personnage et léve une exception au level 10
+  * fonction __manger__ gère l'action de manger du personnage
+  * fonction __changement\_niveau__ gestion de la monté de niveau du personnage et lève une exception au level 10
 * Divers
   * mise en place de l'ocamldoc
   * création du markdown
@@ -157,13 +157,13 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
 * Objet.ml
   * définition de tous les types
   * fonction __init\_objet__ qui permet de choisir un objet aléatoirement
-  * fonction __affiche\_objet__ qui retourne un string de l'objet passé en paramêtre
+  * fonction __affiche\_objet__ qui retourne un string de l'objet passé en paramètre
 * Personnage.ml
   * définition de tous les types
   * fonction __classe\_genre__ qui renvoie un string d'une classe de personnage en fonction de son genre
   * fonction __string\_of\_pv__ retourne un string du nombre de pv du personnage
   * fonction __string\_of\_element__ renvoie un string d'un int en ajoutant un 0 devant les chiffres de 0 à 9
-  * fonction __nb\_degats__ retourne le nombre de dégat en fonction de la classe
+  * fonction __nb\_degats__ retourne le nombre de dégâts en fonction de la classe
   * fonction __frapper__ renvoie les dégats que le personnage va infligé au monstre
   * fonction __message\_attaque__ permet d'afficher les messages d'attaque du personnage
 
@@ -175,23 +175,23 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __d__ renvoie une valeur aléatoire comme un dès
   * fonction __init\_monstre__ qui initialise un monstre aléatoirement
   * fonction __monstre\_frapper__ retourne les dégâts que le monstre inflige 
-  * fonction __xp\_gagne__ renvoie le nombre de point d'expérience que le joueur va gagner
+  * fonction __xp\_gagne__ renvoie le nombre de points d'expérience que le joueur va gagner
   * fonction __nom\_monstre__ retourne un string du nom du monstre
   * fonction __message\_combat__ affichage des messages de combat du monstre
   * fonction __nom\_monstre\_tueur\_nuit__ retourne un string du nom du monstre qui tue le joueur dans la nuit
   * fonction __monstre\_vaincu__ affiche un message quand le monstre est mort
 * Personnage.ml
   * exception __Tue\_En\_Dormant__ permet de savoir si le joueur et mort en dormant
-  * fonction __nb\_string__ pour connaitre le nombre de caractére d'un string
+  * fonction __nb\_string__ pour connaitre le nombre de caractères d'un string
   * fonction __etat\_perso__ gestion de la fiche de personnage
   * fonction __afficher\_infos\_perso__ affiche la fiche de personnage
   * fonction __afficher\_sac\_perso__ affiche le sac du joueur
-  * fonction __mis\_a\_jour\_pv__ gére le changement de point de vie du joueur et vérifie s'il est mort
+  * fonction __mis\_a\_jour\_pv__ gère le changement de point de vie du joueur et vérifie s'il est mort
   * fonction __chance\_toucher__ recalcule les chances de toucher d'un personnage en fonction de son level
-  * fonction __avoir\_objet__ vérifie si le joueur posséde un objet passé en paramêtre
+  * fonction __avoir\_objet__ vérifie si le joueur possède un objet passé en paramètre
   * fonction __accord\_masculin\_feminin__ permet de choisir le bon accord de genre
   * fonction __dormir__ gestion de l'option dormir du personnage
-  * fonction __changement\_niveau__ gestion de la monté de niveau du personnage et léve une exception au level 10
+  * fonction __changement\_niveau__ gestion de la montée de niveau du personnage et lève une exception au level 10
 * Divers
   * mise en place de l'ocamldoc
 
