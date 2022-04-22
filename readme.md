@@ -219,6 +219,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __acheter__ gestion de la transaction entre le marchand et le personnage
   * fonction __affiche\_marchandise__ affichage du menu du marchand
   * fonction __coffre\_hub__ permet d'offrir un nouvel objet à chaque retour au hub
+* Personnage.ml
   * fonction __etat\_perso__ ajout de fonctionnalité supplémentaire à l'affichage de la fiche de personnage
 
 ---
