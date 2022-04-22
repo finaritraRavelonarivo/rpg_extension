@@ -33,49 +33,49 @@ struct
 
   (**
     La classe du personnage peut être un archer, un guerrier ou un magicien
-    @auteur
+    @auteur Bernier Guillaume
   *)
   type classe = Archer | Guerrier | Magicien
 
 
   (**
     Le personnage peut être un homme ou une femme
-    @auteur
+    @auteur Bernier Guillaume
   *)
   type genre = Homme | Femme
 
 
   (**
     Un objet est une certaine quantité d'un type d'objet
-    @auteur
+    @auteur Bernier Guillaume
   *)
   type objet = {type_obj : Objet.type_obj ; qte : int}
 
 
   (**
     Un sac peut contenir zéro à plusieurs objets
-    @auteur
+    @auteur Bernier Guillaume
   *)
   type sac = objet list
 
 
   (**
   Un personnage possède un nom, un genre, une classe, un point de vie, un point d'expérience et un sac
-  @auteur
+  @auteur Bernier Guillaume
   *)
   type perso = { nom : string ; sexe : genre ; role : classe ; pv : float ; xp :int  ; niveau : int  ; sac : sac}
   
 
   (**
     Une exception quand le personnage meurt
-    @auteur
+    @auteur Badet Maxime
   *)
   exception Personnage_mort
 
   
   (**
     Une exception quand le personnage atteint le niveau 10
-    @auteur
+    @auteur Badet Maxime
   *)
   exception LevelMax of perso
 
@@ -83,14 +83,14 @@ struct
   (**
     Une exception quand le personnage est tué  par un monstre quand il dort
    
-    @auteur
+    @auteur Ravelonarivo Finaritra
   *)
   exception Tue_En_Dormant of Monstre.monstre 
   
 
   (**
     La classe du personnage selon son genre
-    @auteur
+    @auteur Bernier Guillaume
     @param perso le personnage dont on veut savoir la classe
     @return le string de la classe selon le genre du personnage
   *)
@@ -106,7 +106,7 @@ struct
 
   (**
     Initialisation d'un personnage 
-    @auteur
+    @auteur Badet Maxime
     @param n le nom du personnage
     @param g le genre du personnage
     @param r le rôle du personnage
@@ -118,7 +118,7 @@ struct
 
   (**
     L'affichage du point de vie du personnage
-    @auteur
+    @auteur Bernier Guillaume
     @param p le personnage dont on veut afficher le point de vie
     @return un string du point de vie du personnage
   *)
@@ -132,7 +132,7 @@ struct
 
   (**
     L'affichage d'un élément de type int
-    @auteur
+    @auteur Bernier Guillaume
     @param element l'entier dont on veut afficher
     @return un string de l'élément 
   *)
@@ -180,7 +180,7 @@ struct
   (**
     L'état du sac du personnage
     Si le sac n'est pas vide alors tous les objets contenus dans le sac seront pris en compte
-    @auteur
+    @auteur  Badet Maxime
     @param perso le personnage possédant le sac
     @return un texte d'affichage de l'état du sac
   *)
@@ -195,7 +195,7 @@ struct
 
   (**
     La longueur d'un string même avec n'importe quelle caractère
-    @auteur
+    @auteur Ravelonarivo Finaritra
     @param st le string dont on veut avoir la longueur 
     @return la longueur d'un string
   *)
@@ -223,7 +223,7 @@ struct
 (**
   L'état du personnage contenant le nom , la classe , le niveau, 
   le point de vie, le point d'expérience et l'état du sac
-  @auteur 
+  @auteur Ravelonarivo Finaritra
   @param perso le personnage dont on veut avoir l'état 
   @return un texte d'affichage de l'état du personnage
 *)
@@ -269,7 +269,7 @@ let etat_perso : perso -> string = fun perso ->
 
   (**
     Affichage de l'état du personnage 
-    @auteur
+    @auteur Ravelonarivo Finaritra
     @param perso le personnage dont on veut afficher l'état du personnage
   *)
    let afficher_infos_perso : perso -> unit = fun perso -> print_string ( etat_perso perso)
@@ -277,7 +277,7 @@ let etat_perso : perso -> string = fun perso ->
 
    (**
     Affichage de l'état du sac du personnage
-    @auteur
+    @auteur Ravelonarivo Finaritra
     @param perso le personnage dont on veut afficher l'état de son sac
   *)
    let afficher_sac_perso = fun perso -> print_string ( etat_sac perso)
@@ -287,7 +287,7 @@ let etat_perso : perso -> string = fun perso ->
     Mise à jour du point de vie du personnage en ajoutant ou en déduisant un point de vie donnée
     si le point de vie est supérieur à 20 on reste à 20
     si le point de vie est inférieur ou égal à 0 alors le personnage est mort
-    @auteur
+    @auteur Ravelonarivo Finaritra , Badet Maxime
     @param ajoutPv le point de vie donné à ajouter ou à déduire
     @param perso le personnage dont on veut mêtre à jour le point de vie
     @raise Personnage_mort quand le point de vie du personnage est à 0
@@ -307,7 +307,7 @@ let etat_perso : perso -> string = fun perso ->
     Le personnage frappe le monstre 
     Chaque classe a une certaine chance de toucher son cible 
     et selon son niveau un certain nombre de point de vie est déduit de son cible s'il arrive à le toucher
-    @auteur
+    @auteur Bernier Guillaume
     @param perso le personnage qui frappe le monstre 
     @return le nombre de dégat que le personnage inflige au monstre
   *)
@@ -319,7 +319,7 @@ let etat_perso : perso -> string = fun perso ->
 
    (**
     Pour savoir si le personnage possède un objet avec un certain quantité
-    @auteur
+    @auteur Ravelonarivo Finaritra , Badet Maxime
     @param pers le personnage dont on veut savoir s'il possède la quantité et l'objet
     @param obj l'objet à regarder s'il en possède
     @param n la quantité minimum de l'objet requis
@@ -337,7 +337,7 @@ let etat_perso : perso -> string = fun perso ->
   (**
     Pour modifier le sac du personnage
     c'est-à-dire qu'on ajoute ou on enlève un type d'objet dans le sac du personnage
-    @auteur
+    @auteur Badet Maxime
     @param t_objet le type d'objet dont on veut ajouter ou enlever
     @param n la quantité de type d'objet dont on veut ajouter ou enlever
     @param perso le personnage dont on veut modifier le sac
@@ -462,7 +462,7 @@ let etat_perso : perso -> string = fun perso ->
 
   (**
 		Permet de calculer le nombre total d'items dans le sac du joueur
-		@auteur 
+		@auteur Badet Maxime
     @param sac le sac du joueur
     @return le nombre d'items
 	*)
@@ -474,7 +474,7 @@ let etat_perso : perso -> string = fun perso ->
     
   (**
 		calcul le score du joueur en fonction des pv, du level, des items
-		@auteur 
+		@auteur Badet Maxime
     @param perso le personnage du joueur
     @return le score du joueur
 	*)

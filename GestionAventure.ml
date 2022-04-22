@@ -105,6 +105,7 @@ Votre choix: ")
     Vérifie le choix du joueur quand il veut fuir
     soit offrir une éponge
     soit courir
+    @auteur Badet Maxime
     @return un choix valide 
   *)
   let rec read_fuite : unit -> string  = fun() ->
@@ -124,6 +125,7 @@ Votre choix: ") in
     Verifie le choix du joueur quand il est face à un monstre
     soit il essaie de combattre
     soit il fuit
+    @auteur Badet Maxime
     @return un choix valide
   *)
   let rec read_action : unit -> string  = fun() ->
@@ -142,7 +144,7 @@ Votre choix: ") in
 
 	(**
 		Vérifie la validité du choix du joueur pour le hub d'aventure
-		@auteur 
+		@auteur Badet Maxime
     @return un choix valide 
 	*)
   let rec read_hubAventure : unit -> string= fun () ->
@@ -212,7 +214,7 @@ Au fait qui es-tu aventurier(ère)?\n") in
 
   (**
 		Propose de fuir contre une éponge ou de courir et résout la fuite
-		@auteur 
+		@auteur Badet Maxime
     @param pers le personnage qui va combattre
     @param monstre le monstre qui va combattre
     @return le personnage après fuite ou combat
@@ -250,7 +252,7 @@ Au fait qui es-tu aventurier(ère)?\n") in
 
   (**
 		Propose au joueur de combattre un monstre ou de fuir
-		@auteur 
+		@auteur Badet Maxime
     @param pers le personnage qui va combattre
     @param monstre le monstre qui va combattre
     @return le nouvel état du joueur
@@ -272,7 +274,7 @@ Au fait qui es-tu aventurier(ère)?\n") in
 		La liste des marchandises que vend un marchand
     il peut ne rien vendre aussi
     il vend des objets aléatoires un ou deux types d'objets avec des prix aléatoires mais abordables
-		@auteur 
+		@auteur Ravelonarivo Finaritra
     @return une liste des objets que le marchand vend
 	*)
   let marchandises : unit -> (Objet.type_obj * int ) list = fun () ->
@@ -294,7 +296,7 @@ Au fait qui es-tu aventurier(ère)?\n") in
 
   (**
 		Gestion de la transaction entre le personnage et le marchand
-		@auteur 
+		@auteur Ravelonarivo Finaritra
     @param marchandise la liste des marchandises avec leur prix
     @param p le personnage du joueur
     @return le personnage du joueur après transaction
@@ -309,7 +311,7 @@ Au fait qui es-tu aventurier(ère)?\n") in
 
   (**
 		Affichage du shop du marchand
-		@auteur 
+		@auteur Ravelonarivo Finaritra
     @param pers le personnage du joueur
     @param liste une liste des marchandises et leur prix
     @return le nouvel état du joueur
@@ -365,11 +367,11 @@ Au fait qui es-tu aventurier(ère)?\n") in
   
   (**
 		Offre une récompense au joueur après chaque retour au hub 
-		@auteur 
+		@auteur Ravelonarivo Finaritra
     @param pers le personnage qui va combattre
     @return le personnage avec son nouvel inventaire
 	*)
-  let coffre_hub: Personnage.perso -> Personnage.perso = fun perso ->
+  let coffre_hub : Personnage.perso -> Personnage.perso = fun perso ->
     let objet= match Random.int 3 with
       |0 -> Objet.Poulet
       |1 ->Objet.Piece  
@@ -432,7 +434,7 @@ Au fait qui es-tu aventurier(ère)?\n") in
 
   (**
 		Modifie si nécessaire le tableau des scores et l'affiche
-		@auteur 
+		@auteur Badet Maxime
     @param score un tuple de score et nom
     @param ajout qui vérifie si on doit ajouter le nouveau score
 	*)
