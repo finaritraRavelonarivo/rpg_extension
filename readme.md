@@ -151,6 +151,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __manger__ gère l'action de manger du personnage
   * fonction __changement\_niveau__ gestion de la monté de niveau du personnage et lève une exception au level 10
 * Divers
+  * ajout des signatures sur chaque modules
   * mise en place de l'ocamldoc
   * création du markdown
 
