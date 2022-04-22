@@ -125,6 +125,14 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
 ## Développement jeu de base
 ### Bernier guillaume:
 * Objet.ml
-  * type __type\_obj__
+  * définition de tous les types
   * fonction __init\_objet__ qui permet de choisir un objet aléatoirement
   * fonction __affiche\_objet__ qui retourne un string de l'objet passé en paramêtre
+* Personnage.ml
+  * définition de tous les types
+  * fonction __classe\_genre__ qui renvoie un string d'une classe de personnage en fonction de son genre
+  * fonction __string\_of\_pv__ retourne un string du nombre de pv du personnage
+  * fonction __string\_of\_element__ renvoie un string d'un int en ajoutant un 0 devant les chiffres de 0 à 9
+  * fonction __nb\_degats__ retourne le nombre de dégat en fonction de la classe
+  * fonction __frapper__ renvoie les dégats que le personnage va infligé au monstre
+  * fonction __message\_attaque__ permet d'afficher les messages d'attaque du personnage
