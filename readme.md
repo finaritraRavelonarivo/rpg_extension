@@ -123,6 +123,9 @@ Nous avons déjà essayé de programmer sans conception lors de précédents pro
 Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir un projet plus propre et plus rapide à produire. 
 
 ## Développement jeu de base
+### Badet maxime:
+* GestionAventure.ml
+
 ### Bernier guillaume:
 * Objet.ml
   * définition de tous les types
@@ -137,7 +140,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __frapper__ renvoie les dégats que le personnage va infligé au monstre
   * fonction __message\_attaque__ permet d'afficher les messages d'attaque du personnage
 
-### Ravelonarivo Finaritra
+### Ravelonarivo Finaritra:
 * GestionAventure.ml
   * fonction __combattre__ gestion du combat entre un monstre et un personnage
 * Monstre.ml
@@ -162,3 +165,5 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __accord\_masculin\_feminin__ permet de choisir le bon accord de genre
   * fonction __dormir__ gestion de l'option dormir du personnage
   * fonction __changement\_niveau__ gestion de la monté de niveau du personnage et léve une exception au level 10
+* Divers
+  * Mise en place de l'ocamldoc
