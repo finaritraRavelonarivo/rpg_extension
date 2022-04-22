@@ -123,5 +123,6 @@ Nous avons déjà essayé de programmer sans conception lors de précédents pro
 Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir un projet plus propre et plus rapide à produire. 
 
 ## Développement jeu de base
--Bernier guillaume a commencé par produire le module __Objet.ml__. Il y a définie le type __type\_obj__. Il a également créé la fonction __init\_objet__ pour choisir des objets aléatoirement et __affiche\_objet__ pour retourner le mot correspondant à un objet.
--Bernier guillaume a également créé les types dans Personnage.ml. Il a également créé les fonctions __string\_of\_pv__ et __string\_of\_element__ qui permettent de transformer les pv en string. nb_degats est une fonction 
+### Bernier guillaume:
+* Objet.ml
+ * Création du type __type\_obj__
