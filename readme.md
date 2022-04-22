@@ -121,3 +121,6 @@ ocamlrun rpg.exe
 Avant de commencer le développement, nous avons décidé de mettre à plat le projet pour produire un diagramme de classe. Cette étape nous a été très utile lors de la phase de développement, car elle nous a permis de nous coordonner dès le début, mais surtout avoir une idée générale du projet.  
 Nous avons déjà essayé de programmer sans conception lors de précédents projets et le résultat été très loin d'être concluant (fonction en double, mauvaise répartition du travail...).   
 Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir un projet plus propre et plus rapide à produire. 
+
+## Développement jeu de base
+Bernier guillaume a commencé par produire le module objet.ml. Il y a définie le type _type\_obj_
