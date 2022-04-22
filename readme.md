@@ -136,3 +136,29 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __nb\_degats__ retourne le nombre de dégat en fonction de la classe
   * fonction __frapper__ renvoie les dégats que le personnage va infligé au monstre
   * fonction __message\_attaque__ permet d'afficher les messages d'attaque du personnage
+
+### Ravelonarivo Finaritra
+* GestionAventure.ml
+  * fonction __combattre__ gestion du combat entre un monstre et un personnage
+* Monstre.ml
+  * définition de tous les types
+  * fonction __d__ renvoie une valeur aléatoire comme un dès
+  * fonction __init\_monstre__ qui initialise un monstre aléatoirement
+  * fonction __monstre\_frapper__ retourne les dégâts que le monstre inflige 
+  * fonction __xp\_gagne__ renvoie le nombre de point d'expérience que le joueur va gagner
+  * fonction __nom\_monstre__ retourne un string du nom du monstre
+  * fonction __message\_combat__ affichage des messages de combat du monstre
+  * fonction __nom\_monstre\_tueur\_nuit__ retourne un string du nom du monstre qui tue le joueur dans la nuit
+  * fonction __monstre\_vaincu__ affiche un message quand le monstre est mort
+* Personnage.ml
+  * exception __Tue\_En\_Dormant__ permet de savoir si le joueur et mort en dormant
+  * fonction __nb\_string__ pour connaitre le nombre de caractére d'un string
+  * fonction __etat\_perso__ gestion de la fiche de personnage
+  * fonction __afficher\_infos\_perso__ affiche la fiche de personnage
+  * fonction __afficher\_sac\_perso__ affiche le sac du joueur
+  * fonction __mis\_a\_jour\_pv__ gére le changement de point de vie du joueur et vérifie s'il est mort
+  * fonction __chance\_toucher__ recalcule les chances de toucher d'un personnage en fonction de son level
+  * fonction __avoir\_objet__ vérifie si le joueur posséde un objet passé en paramêtre
+  * fonction __accord\_masculin\_feminin__ permet de choisir le bon accord de genre
+  * fonction __dormir__ gestion de l'option dormir du personnage
+  * fonction __changement\_niveau__ gestion de la monté de niveau du personnage et léve une exception au level 10
