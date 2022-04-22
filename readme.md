@@ -132,7 +132,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __read\_classe__ renvoie la classe désirée lors de la saisie
   * fonction __read\_hubAventure__ permet la sélection d'action dans le hub
   * fonction __init\_aventure__ initialisation de l'aventure
-  * fonction __malheureuse_rencontre__ gère les malheureuse_rencontre entre le personnage et les monstres
+  * fonction __malheureuse\_rencontre__ gère les malheureuse_rencontre entre le personnage et les monstres
   * fonction __hubAventure__ gestion des divers choix du joueur pour progresser dans l'aventure
   * fonction __fin\_partie__ gestion de l'affichage de fin de partie
 * Main.ml
@@ -143,7 +143,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * exception __Personnage\_mort__ permet de savoir si le personnage est mort
   * exception __LevelMax__ permet de savoir si le personnage est level 10
   * fonction __init\_perso__ initialise le personnage
-  * fonction __etat\_sac__ permet de compter le nombre d'objets avec leur quantité
+  * fonction __etat\_sac__ permet d'afficher le contenu du sac du joueur
   * fonction __mis\_a\_jour\_pv__ gère le changement de point de vie du joueur et vérifie s'il est mort
   * fonction __avoir\_objet__ vérifie si le joueur possède un objet passé en paramètre
   * fonction __modifier\_sac__ gestion de la modification du contenu du sac du joueur
