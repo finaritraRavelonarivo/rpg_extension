@@ -125,5 +125,6 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
 ## Développement jeu de base
 ### Bernier guillaume:
 * Objet.ml
-  * Création du type __type\_obj__
-  * __init\_objet__
+  * type __type\_obj__
+  * fonction __init\_objet__ qui permet de choisir un objet aléatoirement
+  * fonction __affiche\_objet__ qui retourne un string de l'objet passé en paramêtre
