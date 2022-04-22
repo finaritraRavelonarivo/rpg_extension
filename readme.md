@@ -223,4 +223,6 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
 
 ---
 # Conclusion
+Le projet nous aura pris beaucoup de temps, mais aura été très formateur. Nous avons acquis de plus grandes connaissances en ocaml, mais surtout en programmation fonctionnelle grâce à ce projet. Nous avons également découvert markdown, qui est très utile pour documenter un projet.
+Nos débuts dans le projet n'ont pas été simples, mais nous avons su surmonter les problèmes et arriver à un résultat dont nous sommes fières.
 
