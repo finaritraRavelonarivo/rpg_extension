@@ -196,4 +196,4 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * mise en place de l'ocamldoc
 
 ---
-#Développement extensions
+# Développement extensions
