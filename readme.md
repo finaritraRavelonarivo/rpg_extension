@@ -24,6 +24,7 @@ Pour ce faire vous vous déplacerez de hub en hub afin d'acquérir fortune et re
   * Conception
   * Développement jeu de base
   * Développement extensions
+* Conclusion
 
 ---
 # Jeu de base
@@ -219,3 +220,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __affiche\_marchandise__ affichage du menu du marchand
   * fonction __coffre\_hub__ permet d'offrir un nouvel objet à chaque retour au hub
   * fonction __etat\_perso__ ajout de fonctionnalité supplémentaire à l'affichage de la fiche de personnage
+
+---
+# Conclusion
+
