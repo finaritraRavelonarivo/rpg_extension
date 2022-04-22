@@ -194,3 +194,6 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __changement\_niveau__ gestion de la monté de niveau du personnage et léve une exception au level 10
 * Divers
   * mise en place de l'ocamldoc
+
+---
+#Développement extensions
