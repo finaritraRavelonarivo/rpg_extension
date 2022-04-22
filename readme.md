@@ -4,7 +4,7 @@
 
 Bienvenue dans le jeu the lonely adventurer. Votre but sera de devenir un aventurier hors pair.
 Pour ce faire vous vous déplacerez de hub en hub afin d'acquérir fortune et renommée.  
-Êtes-vous prêt à relever le défie ou périrez vous comme vos prédécesseurs?   
+Êtes-vous prêt à relever le défi ou périrez vous comme vos prédécesseurs?   
 
 ---   
 # Sommaire
@@ -63,8 +63,8 @@ Vivant dans la forêt la plupart de son temps, l'archer connait la nature et sai
 _Cette classe est faite pour vous si vous aimez toucher votre cible à chaque attaque._
 
 ### Le magicien:
-Intelligent et studieux, le magicien aime étudier et apprendre davantage sur le monde qui l'entour.
-Le magicien n'est pas le plus à l'aise dans la nature, mais ces années d'étude lui permettent de compenser en adaptant leur environnement.
+Intelligent et studieux, le magicien aime étudier et apprendre davantage sur le monde qui l'entoure.
+Le magicien n'est pas le plus à l'aise dans la nature, mais ces années d'études lui permettent de compenser en adaptant leur environnement.
 _Une très bonne classe pour les gens voulant une classe équilibrée_   
 
 
@@ -93,7 +93,7 @@ Pour vous offrir plus de chance de réussir dans votre aventure et vous donner e
 Profitez d'un coffre unique à chaque hub et profitez-en pour battre votre score.
 
 ## Nouvelle fiche de personnage   
-Cette fiche de personnage amélioré vous indiquera beaucoup plus d'information et vous permettra de mieux planifier votre aventure. Parmi les nouveautés, vous trouverez: le nombre de points d'expérience avant votre montée de level, votre chance de toucher, ainsi que les dégâts de votre personnage.
+Cette fiche de personnage améliorée vous indiquera beaucoup plus d'informations et vous permettra de mieux planifier votre aventure. Parmi les nouveautés, vous trouverez: le nombre de points d'expérience avant votre montée de level, votre chance de toucher, ainsi que les dégâts de votre personnage.
 
 ---
 # Exécution
@@ -119,12 +119,12 @@ ocamlrun rpg.exe
 # Rapport     
    
 ## Conception    
-Avant de commencer le développement, nous avons décidé de mettre à plat le projet pour produire un diagramme de classe. Cette étape nous a été très utile lors de la phase de développement, car elle nous a permis de nous coordonner dès le début, mais surtout avoir une idée générale du projet.  
-Nous avons déjà essayé de programmer sans conception lors de précédents projets et le résultat été très loin d'être concluant (fonction en double, mauvaise répartition du travail...).   
+Avant de commencer le développement, nous avons décidé de mettre à plat le projet pour produire un diagramme de classe. Cette étape nous a été très utile lors de la phase de développement, car elle nous a permis de nous coordonner dès le début, mais surtout d'avoir une idée générale du projet.  
+Nous avons déjà essayé de programmer sans conception lors des précédents projets et le résultat été très loin d'être concluant (fonction en double, mauvaise répartition du travail...).   
 Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir un projet plus propre et plus rapide à produire. 
 
 ## Développement jeu de base
-### Badet maxime:
+### Badet Maxime:
 * GestionAventure.ml
   * exception __Quitte\_le\_jeu__ permet de savoir quand le joueur quitte le jeu
   * fonction __delimiteur__ affiche un délimiteur visuel entre chaque action dans le terminal
@@ -155,7 +155,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * ajout des signatures sur les modules
   * création du markdown
 
-### Bernier guillaume:
+### Bernier Guillaume:
 * Objet.ml
   * définition de tous les types
   * fonction __init\_objet__ qui permet de choisir un objet aléatoirement
@@ -196,9 +196,10 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __changement\_niveau__ gestion de la montée de niveau du personnage et lève une exception au level 10
 * Divers 
   * mise en place de l'ocamldoc 
+  * dernière vérification et mise en place du dossier à rendre
 
 ## Développement extensions
-### Badet maxime:
+### Badet Maxime:
 * GestionAventure.ml
   * fonction __read\_fuite__ vérifie la saisie du joueur et affiche les choix
   * fonction __fuir__ gestion de la fuite du joueur
@@ -210,7 +211,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
 * Score.ml
   * fonction __validite\_ligne__ retourne un type somme pour chaque ligne du fichier de score
   * fonction __lire\_ligne__ ajoute chaque ligne, deux par deux dans une liste de tuple de string
-  * fonction __lire\_fichier__ ouvre ou créer le fichier de score
+  * fonction __lire\_fichier__ ouvre ou crée le fichier de score
   * fonction __afficher\_score__ affiche les 10 meilleurs scores
   * fonction __ecrire\_fichier__ écrit le nouveau score dans le fichier
 
@@ -220,6 +221,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __acheter__ gestion de la transaction entre le marchand et le personnage
   * fonction __affiche\_marchandise__ affichage du menu du marchand
   * fonction __coffre\_hub__ permet d'offrir un nouvel objet à chaque retour au hub
+* Personnage.ml
   * fonction __etat\_perso__ ajout de fonctionnalité supplémentaire à l'affichage de la fiche de personnage
 
 ---
