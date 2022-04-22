@@ -126,3 +126,4 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
 ### Bernier guillaume:
 * Objet.ml
   * Création du type __type\_obj__
+  * __init\_objet__
