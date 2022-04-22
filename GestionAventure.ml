@@ -19,14 +19,14 @@ struct
 
 	(**
 		exception levée quand le joueur quitte l'aventure
-		@auteur 
+		@auteur Badet Maxime
 	*)
   exception Quitte_le_jeu of Personnage.perso;;
 
 
 	(**
 		Delimiteur de ligne pour chaque nouveau message de l'aventure
-		@auteur 
+		@auteur Badet Maxime
     @return un string de delimitation
 	*)
   let delimiteur : unit -> string = fun () ->"\n+--------------------------------------------------------------------------------+\n"
@@ -34,7 +34,7 @@ struct
 
 	(**
 		Permet de vérifier que le nom est correcte
-		@auteur 
+		@auteur Badet Maxime
     @return le nom valide du joueur
 	*)
   let rec read_nom  : unit -> string= fun () ->
@@ -51,7 +51,7 @@ struct
 
   (**
 		Transforme le choix en genre du joueur en constructeur de genre de personnage
-		@auteur 
+		@auteur Badet Maxime
     @return le genre du personnage
 	*)
   let rec read_genre : unit -> Personnage.genre= fun () ->  
@@ -69,7 +69,7 @@ Votre choix: ")
 
   (**
 		Transforme la classe choisie par le joueur en constructeur de classe de personnage
-		@auteur 
+		@auteur Badet Maxime
     @param g permet d'afficher un message adapté au genre du personnage
     @return la classe du joueur
 	*)
@@ -166,7 +166,7 @@ Votre choix:")
 
 	(**
 		Initialise le personnage et affiche le message de début d'aventure
-		@auteur 
+		@auteur Badet Maxime
     @return le personnage de debut d'aventure
 	*)
   let rec init_aventure : unit -> Personnage.perso = fun ()->

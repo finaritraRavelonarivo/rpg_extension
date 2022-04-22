@@ -10,7 +10,7 @@ struct
 
   (**
     Vérifie si on est arrivé à la fin du fichier
-    @auteur 
+    @auteur Badet Maxime
     @param ic les données du fichier à traiter
     @return un type some d'un tuple de string
   *)
@@ -23,7 +23,7 @@ struct
 
   (**
     Regarde chaque ligne pour l'ajouter à une liste
-    @auteur 
+    @auteur Badet Maxime
     @param ic les données du fichier à traiter 
     @return une liste avec les noms et score des personnages contenu dans le fichier
   *)
@@ -37,7 +37,7 @@ struct
 
   (**
     Regarde si le fichier existe ou le crée, puis l'ouvre
-    @auteur 
+    @auteur Badet Maxime
     @return une liste de tuple de string avec le score et le nom des personnage dans le fichier score.txt
   *)
   let rec lire_fichier : unit -> (string*string) list  = fun () ->
@@ -53,7 +53,7 @@ struct
 
   (**
     Affiche le tableau des scores dans le terminal
-    @auteur 
+    @auteur Badet Maxime
   *)
   let afficher_score : unit -> unit = fun () ->
     let scores = (lire_fichier ()) in
@@ -68,7 +68,7 @@ struct
 
   (**
     Ecrit dans le fichier le nouveau tableau des scores
-    @auteur 
+    @auteur Badet Maxime
     @param l une liste des nom et score
     @param oc l'output du fichier pour écrire dedans
   *)  
@@ -83,7 +83,7 @@ struct
 
   (**
     Ouvre le fichier score pour récupérer les scores déjà présents puis ajouter ou non le nouveau score du joueur
-    @auteur 
+    @auteur Badet Maxime
     @param score le score du joueur
     @param nom le nom du personnage
   *)

@@ -9,7 +9,7 @@ let raison_fin = ref "";;
 
 (**
 	vérifie pourquoi le joueur quitte et attribut un message à raison_fin
-	@auteur
+	@auteur Badet Maxime
   @catch la raison de fin de partie
 *)
 try 

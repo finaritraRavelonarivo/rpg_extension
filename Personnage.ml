@@ -146,7 +146,7 @@ struct
 
  (** 
     Le pourcentage de chance que le personnage arrive à toucher son cible selon son niveau actuel quand il combat
-    @auteur
+    @auteur Ravelonarivo Finaritra
     @param perso le personnage qui combat
       *)
       let chance_toucher : perso -> int = fun perso ->
@@ -166,7 +166,7 @@ struct
   (**
     Le nombre de dégats que le personnage peut infliger à son adversaire selon sa classe 
     si il arrive à toucher sa cible
-    @auteur
+    @auteur Bernier Guillaume
     @param p le personnage qui inflige le dégat
     @return le nombre de point de vie retirer à un monstre si jamais le personnage le touche 
   *)
@@ -362,7 +362,7 @@ let etat_perso : perso -> string = fun perso ->
    (**
     Le personnage mange un poulet de son sac et obtient 2 points de vie supplémentaires
     Si le personnage ne possède pas de poulet, il ne peut pas manger
-    @auteur
+    @auteur Badet Maxime
     @param perso le personnage qui veut manger
     @return (true et le personnage enlevé d'un poulet dans son sac ) ou ( false et le personnage initial )
   *)
@@ -375,7 +375,7 @@ let etat_perso : perso -> string = fun perso ->
 
   (**
       Pour accorder les verbes, adjectifs selon le genre du personnage
-      @auteur
+      @auteur Ravelonarivo Finaritra
       @param perso le personnage pour avoir son genre
       @param masculin le mot en masculin
       @param feminin le mot en féminin
@@ -390,7 +390,7 @@ let etat_perso : perso -> string = fun perso ->
   (**
     Le personnage dort et gagne 4 points de vie supplémentaires si aucun danger ne se passe durant sa nuit ou sa sieste
     Un monstre peut l'attaquer quand il dort 
-    @auteur
+    @auteur Ravelonarivo Finaritra
     @param perso le personnage qui dort
     @raise Tue_En_Dormant monstre si le personnage est tué par le monstre durant son sommeil
     @return le personnage avec des points de vie en plus ou bien un message indiquant sa mort
@@ -411,7 +411,7 @@ let etat_perso : perso -> string = fun perso ->
     Le changement de niveau du personnage s'effectue si le point d'expérience est supérieur 
     au point d'expérience maximum de son niveau actuel
     S'il atteint le niveau 10 alors le jeu est fini
-    @auteur
+    @auteur Ravelonarivo Finaritra, Badet Maxime
     @param p le personnage joué
     @param xp le nouveau point d'expérience du personnage 
     @raise LevelMax quand le personnage atteint le niveau 10
@@ -433,24 +433,13 @@ let etat_perso : perso -> string = fun perso ->
           let nouv_niveau = le_niveau +1 in 
           aux nouv_xp nouv_niveau
     in aux xp p.niveau
-    
-
-  (**
-    Affichage du message quand le personnage frappe 
-    un message s'il manque sa cible
-    et un autre s'il arrive à l'avoir
-    @auteur
-    @param p le personnage qui frappe
-    @param frappe la frappe du personnage si c'est 0 alors il a manqué sa cible sinon il l'a eu
-    
-  *)
 
 
   (**
      Le message quand le personnage frappe 
     un message s'il manque sa cible
     et un autre s'il arrive à l'avoir
-    @auteur
+    @auteur Bernier Guillaume
     @param p le personnage qui frappe
     @param frappe la frappe du personnage, si c'est 0 alors il a manqué sa cible sinon il l'a eu
   *)
