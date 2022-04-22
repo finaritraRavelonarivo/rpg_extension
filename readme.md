@@ -196,3 +196,26 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * mise en place de l'ocamldoc
 
 ## Développement extensions
+### Badet maxime:
+* GestionAventure.ml
+  * fonction __read\_fuite__ vérfie la saisie du joueur et affiche les choix
+  * fonction __fuir__ gestion de la fuite du joueur
+  * fonction __choixAventure__ propose de fuir ou combattre et gère l'action
+  * fonction __tableau\_score__ gestion et affichage du tableau des scores
+* Personnage.ml
+  * fonction __nb\_objet__ calcul le nombre d'objets dans le sac du jouer avec la quantité  
+  * fonction __score__ gestion du calcul du score du joueur
+* Score.ml
+  * fonction __validite\_ligne__ retourne un type somme pour chaque ligne du fichier de score
+  * fonction __lire\_ligne__ ajoute chaque ligne, deux par deux dans une liste de tuple de string
+  * fonction __lire\_fichier__ ouvre ou créer le fichier de score
+  * fonction __afficher\_score__ affiche les 10 meilleurs scores
+  * fonction __ecrire\_fichier__ écrit le nouveau score dans le fichier
+
+### Ravelonarivo Finaritra:
+* GestionAventure.ml
+  * fonction __marchandises__ génération de l'inventaire du marchand
+  * fonction __acheter__ gestion de la transaction entre le marchand et le personnage
+  * fonction __affiche\_marchandise__ affichage du menu du marchand
+  * fonction __coffre\_hub__ permet d'offrir un nouvel objet à chaque retour au hub
+  * fonction __etat\_perso__ ajout de fonctionnalité supplémentaire à l'affichage de la fiche de personnage
