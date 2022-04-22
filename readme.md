@@ -125,4 +125,4 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
 ## Développement jeu de base
 ### Bernier guillaume:
 * Objet.ml
- * Création du type __type\_obj__
+  * Création du type __type\_obj__
