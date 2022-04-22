@@ -149,6 +149,9 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __modifier\_sac__ gestion de la modification du contenu du sac du joueur
   * fonction __manger__ gére l'action de manger du personnage
   * fonction __changement\_niveau__ gestion de la monté de niveau du personnage et léve une exception au level 10
+* Divers
+  * mise en place de l'ocamldoc
+  * création du markdown
 
 ### Bernier guillaume:
 * Objet.ml
@@ -190,4 +193,4 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __dormir__ gestion de l'option dormir du personnage
   * fonction __changement\_niveau__ gestion de la monté de niveau du personnage et léve une exception au level 10
 * Divers
-  * Mise en place de l'ocamldoc
+  * mise en place de l'ocamldoc
