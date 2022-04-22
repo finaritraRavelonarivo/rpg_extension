@@ -173,7 +173,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __combattre__ gestion du combat entre un monstre et un personnage
 * Monstre.ml
   * définition de tous les types
-  * fonction __d__ renvoie une valeur aléatoire comme un dès
+  * fonction __d__ renvoie une somme de valeurs aléatoires
   * fonction __init\_monstre__ qui initialise un monstre aléatoirement
   * fonction __monstre\_frapper__ retourne les dégâts que le monstre inflige 
   * fonction __xp\_gagne__ renvoie le nombre de points d'expérience que le joueur va gagner
@@ -185,7 +185,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * exception __Tue\_En\_Dormant__ permet de savoir si le joueur et mort en dormant
   * fonction __nb\_string__ pour connaitre le nombre de caractères d'un string
   * fonction __etat\_perso__ gestion de la fiche de personnage
-  * fonction __afficher\_infos\_perso__ affiche la fiche de personnage
+  * fonction __afficher\_infos\_perso__ affiche la fiche du personnage
   * fonction __afficher\_sac\_perso__ affiche le sac du joueur
   * fonction __mis\_a\_jour\_pv__ gère le changement de point de vie du joueur et vérifie s'il est mort
   * fonction __chance\_toucher__ recalcule les chances de toucher d'un personnage en fonction de son level
@@ -220,7 +220,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __affiche\_marchandise__ affichage du menu du marchand
   * fonction __coffre\_hub__ permet d'offrir un nouvel objet à chaque retour au hub
 * Personnage.ml
-  * fonction __etat\_perso__ ajout de fonctionnalité supplémentaire à l'affichage de la fiche de personnage
+  * fonction __etat\_perso__ ajout de fonctionnalité supplémentaire à l'affichage de la fiche du personnage
 
 ---
 # Conclusion
