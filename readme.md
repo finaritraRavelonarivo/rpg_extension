@@ -194,8 +194,11 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __accord\_masculin\_feminin__ permet de choisir le bon accord de genre
   * fonction __dormir__ gestion de l'option dormir du personnage
   * fonction __changement\_niveau__ gestion de la montée de niveau du personnage et lève une exception au level 10
+  * fonction __modifier\_sac__ gestion de la modification du contenu du sac du joueur
+  * fonction __manger__ gère l'action de manger du personnage
 * Divers 
   * mise en place de l'ocamldoc 
+  * modification pour un bon visuel du code
   * dernière vérification et mise en place du dossier à rendre
 
 ## Développement extensions
@@ -221,6 +224,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __acheter__ gestion de la transaction entre le marchand et le personnage
   * fonction __affiche\_marchandise__ affichage du menu du marchand
   * fonction __coffre\_hub__ permet d'offrir un nouvel objet à chaque retour au hub
+  * fonction __hubAventure__ ajout de nouveau choix au hub
 * Personnage.ml
   * fonction __etat\_perso__ ajout de fonctionnalité supplémentaire à l'affichage de la fiche de personnage
 
