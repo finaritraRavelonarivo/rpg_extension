@@ -14,7 +14,7 @@ Pour ce faire vous vous déplacerez de hub en hub afin d'acquérir fortune et re
 * Extension
   * Marchand
   * Fuir
-  * Tableau de score
+  * Tableau des scores
   * Coffre
   * Nouvelle fiche de personnage
 * Exécution
@@ -58,7 +58,7 @@ En armure et très fort, le guerrier est une classe qui joue beaucoup sur la cha
 Les guerriers tapent très fort, mais leur armure bloque leur mouvement. Ils utilisent leur force pour compenser leur manque de mobilité.    
 _C'est une classe parfaite si vous avez beaucoup de chance et aimez les gros dégâts._
  
-### l'archer:
+### L'archer:
 Vivant dans la forêt la plupart de son temps, l'archer connait la nature et sait survivre comme personne une fois dehors. Très agile, et très précis l'archer et un super combattant à distance.  
 _Cette classe est faite pour vous si vous aimez toucher votre cible à chaque attaque._
 
