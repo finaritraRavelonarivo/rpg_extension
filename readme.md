@@ -48,7 +48,7 @@ Vous pourrez:
 **Dormir** est indispensable pour survivre, mais surtout vous récupérerez de la vie lors de votre sommeil. Mais attention aux mauvaises rencontres.  
 **Manger** il vous faudra de quoi manger pour pouvoir profiter de cette action qui vous revigorera.    
 **Visualiser l'état du personnage** vous permet de planifier votre prochaine action et peut-être déjouer un peu plus longtemps les plans de la mort.  
-**Quitter** parce que finalement chaque aventuriez mérite une retraite pour éviter la mort et profiter de ses richesses.
+**Quitter** parce que finalement chaque aventurier mérite une retraite pour éviter la mort et profiter de ses richesses.
 
 
 ## Les classes
@@ -166,7 +166,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __string\_of\_pv__ retourne un string du nombre de pv du personnage
   * fonction __string\_of\_element__ renvoie un string d'un int en ajoutant un 0 devant les chiffres de 0 à 9
   * fonction __nb\_degats__ retourne le nombre de dégâts en fonction de la classe
-  * fonction __frapper__ renvoie les dégâts que le personnage va infligé au monstre
+  * fonction __frapper__ renvoie les dégâts que le personnage va infliger au monstre
   * fonction __message\_attaque__ permet d'afficher les messages d'attaque du personnage
 
 ### Ravelonarivo Finaritra:
