@@ -125,7 +125,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
 
 ## Développement jeu de base
 ### Badet Maxime:
-* `GestionAventure.ml`
+* GestionAventure.ml
   * exception __Quitte\_le\_jeu__ permet de savoir quand le joueur quitte le jeu
   * fonction __delimiteur__ affiche un délimiteur visuel entre chaque action dans le terminal
   * fonction __read\_nom__ vérifie la validité d'un nom de personnage
@@ -136,11 +136,11 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __malheureuse\_rencontre__ gère les malheureuse_rencontre entre le personnage et les monstres
   * fonction __hubAventure__ gestion des divers choix du joueur pour progresser dans l'aventure
   * fonction __fin\_partie__ gestion de l'affichage de fin de partie
-* `main.ml`
-  * mise en place totale du `main.ml`
-* `Monstre.ml`
+* main.ml
+  * mise en place totale du main.ml
+* Monstre.ml
   * fonction __message\_malheureuse\_rencontre__ affiche les messages liés aux malheureuses rencontres
-* `Personnage.ml`
+* Personnage.ml
   * exception __Personnage\_mort__ permet de savoir si le personnage est mort
   * exception __LevelMax__ permet de savoir si le personnage est level 10
   * fonction __init\_perso__ initialise le personnage
@@ -150,17 +150,17 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __modifier\_sac__ gestion de la modification du contenu du sac du joueur
   * fonction __manger__ gère l'action de manger du personnage
   * fonction __changement\_niveau__ gestion de la montée de niveau du personnage et lève une exception au level 10
-* `Divers`
+* Divers
   * mise en place de l'ocamldoc
   * ajout des signatures sur les modules
   * création du markdown
 
 ### Bernier Guillaume:
-* `Objet.ml`
+* Objet.ml
   * définition de tous les types
   * fonction __init\_objet__ qui permet de choisir un objet aléatoirement
   * fonction __affiche\_objet__ qui retourne un string de l'objet passé en paramètre
-* `Personnage.ml`
+* Personnage.ml
   * définition de tous les types
   * fonction __classe\_genre__ qui renvoie un string d'une classe de personnage en fonction de son genre
   * fonction __string\_of\_pv__ retourne un string du nombre de pv du personnage
@@ -170,9 +170,9 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __message\_attaque__ permet d'afficher les messages d'attaque du personnage
 
 ### Ravelonarivo Finaritra:
-* `GestionAventure.ml`
+* GestionAventure.ml
   * fonction __combattre__ gestion du combat entre un monstre et un personnage
-* `Monstre.ml`
+* Monstre.ml
   * définition de tous les types
   * fonction __d__ renvoie une valeur aléatoire comme un dès
   * fonction __init\_monstre__ qui initialise un monstre aléatoirement
@@ -182,7 +182,7 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __message\_combat__ affichage des messages de combat du monstre
   * fonction __nom\_monstre\_tueur\_nuit__ retourne un string du nom du monstre qui tue le joueur dans la nuit
   * fonction __monstre\_vaincu__ affiche un message quand le monstre est mort
-* `Personnage.ml`
+* Personnage.ml
   * exception __Tue\_En\_Dormant__ permet de savoir si le joueur et mort en dormant
   * fonction __nb\_string__ pour connaitre le nombre de caractères d'un string
   * fonction __etat\_perso__ gestion de la fiche de personnage
@@ -196,22 +196,22 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __changement\_niveau__ gestion de la montée de niveau du personnage et lève une exception au level 10
   * fonction __modifier\_sac__ gestion de la modification du contenu du sac du joueur
   * fonction __manger__ gère l'action de manger du personnage
-* `Divers` 
+* Divers 
   * mise en place de l'ocamldoc 
   * modification pour un bon visuel du code
   * dernière vérification et mise en place du dossier à rendre
 
 ## Développement extensions
 ### Badet Maxime:
-* `GestionAventure.ml`
+* GestionAventure.ml
   * fonction __read\_fuite__ vérifie la saisie du joueur et affiche les choix
   * fonction __fuir__ gestion de la fuite du joueur
   * fonction __choixAventure__ propose de fuir ou combattre et gère l'action
   * fonction __tableau\_score__ gestion et affichage du tableau des scores
-* `Personnage.ml`
+* Personnage.ml
   * fonction __nb\_objet__ calcul le nombre d'objets dans le sac du jouer avec la quantité  
   * fonction __score__ gestion du calcul du score du joueur
-* `Score.ml`
+* Score.ml
   * fonction __validite\_ligne__ retourne un type somme pour chaque ligne du fichier de score
   * fonction __lire\_ligne__ ajoute chaque ligne, deux par deux dans une liste de tuple de string
   * fonction __lire\_fichier__ ouvre ou crée le fichier de score
@@ -219,13 +219,13 @@ Ce projet nous a permis de voir qu'une bonne conception, nous permettait d'avoir
   * fonction __ecrire\_fichier__ écrit le nouveau score dans le fichier
 
 ### Ravelonarivo Finaritra:
-* `GestionAventure.ml`
+* GestionAventure.ml
   * fonction __marchandises__ génération de l'inventaire du marchand
   * fonction __acheter__ gestion de la transaction entre le marchand et le personnage
   * fonction __affiche\_marchandise__ affichage du menu du marchand
   * fonction __coffre\_hub__ permet d'offrir un nouvel objet à chaque retour au hub
   * fonction __hubAventure__ ajout de nouveau choix au hub
-* `Personnage.ml`
+* Personnage.ml
   * fonction __etat\_perso__ ajout de fonctionnalité supplémentaire à l'affichage de la fiche de personnage
 
 ---
